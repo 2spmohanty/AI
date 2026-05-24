@@ -1,0 +1,131 @@
+# ══════════════════════════════════════════════
+# AI Engineer Practice Repo — .gitignore
+# Smruti Mohanty
+# Python (uv) + JavaScript (node/npx)
+# ══════════════════════════════════════════════
+
+# ── SECRETS — never commit these ──────────────
+.env
+.env.local
+.env.*.local
+*.env
+.envrc
+
+# ── PYTHON (uv managed) ───────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# uv / virtualenv
+.venv/
+venv/
+env/
+.uv/
+
+# uv cache
+.uv-cache/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+site-packages/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy / ruff / pyright
+.mypy_cache/
+.ruff_cache/
+pyrightconfig.json
+
+# ── JAVASCRIPT (node/npx managed) ────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+.next/
+out/
+build/
+
+# Parcel cache
+.parcel-cache/
+
+# Vite cache
+.vite/
+
+# Scrimba / Cloudflare
+.wrangler/
+wrangler.toml.bak
+
+# ── AI / ML specific ─────────────────────────
+# HuggingFace model cache (can be GBs)
+.cache/huggingface/
+models/
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+*.pt
+*.pth
+
+# Chroma vector DB local storage
+chroma/
+chroma_db/
+.chroma/
+
+# FAISS index files
+*.faiss
+*.index
+
+# Ollama models (managed separately)
+ollama_models/
+
+# ── LOGS & OUTPUT ─────────────────────────────
+*.log
+*.jsonl
+ai-log.jsonl
+logs/
+output/
+outputs/
+
+# ── OS FILES ──────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# ── EDITORS ───────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ── MISC ──────────────────────────────────────
+*.zip
+*.tar.gz
+tmp/
+temp/
+scratch/
+
+.idea/
+.DS_Store
+.env
