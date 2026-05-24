@@ -1,0 +1,3 @@
+A. For UI Exercises (Browser)Use this when you need to see HTML and CSS.Run npm run dev.Open the URL (e.g., http://localhost:5173/src/module1/day1/index.html).Any changes to HTML/CSS will refresh the browser.
+
+B. For Logic Exercises (Terminal)Use this when you just want to see console.log results instantly in VS Code.Open a new terminal in VS Code.Run: npm run logicEvery time you press Cmd + S (Save) in main.js, the output appears in your terminal.
