@@ -8,6 +8,7 @@ dependencies = [
     "huggingface-hub>=1.16.1",
     "openai>=2.38.0",
     "pydantic>=2.13.4",
+    "pydantic-ai-slim[openai]>=1.102.0",
     "python-dotenv>=1.2.2",
     "sentencepiece>=0.2.1",
     "torch>=2.12.0",
