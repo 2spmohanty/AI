@@ -7,7 +7,6 @@ from supabase import create_client, Client
 load_dotenv()
 
 api_key = os.getenv("AI_KEY")
-ai_url = os.getenv("AI_URL")
 
 podcasts =  [
   "Beyond Mars (1 hr 15 min): Join space enthusiasts as they speculate about extraterrestrial life and the mysteries of distant planets.",
