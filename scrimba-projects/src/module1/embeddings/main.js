@@ -1,4 +1,4 @@
-import openai from '../config.js';
+import {openai_client} from '../config.js';
 
 const content = [
   "Beyond Mars: speculating life on distant planets.",
@@ -17,7 +17,7 @@ const content = [
 */
 
 async function getEmbedding(text){
-  const result = await openai.embeddings.create({
+  const result = await openai_client.embeddings.create({
     model: "text-embedding-ada-002",
     input: text,
   });
