@@ -27,12 +27,36 @@ async function getChatCompletion(userQuery, contextData) {
     }
 }
 
+async function getChatCompletionStream(userQuery, contextData) {
+    try {
+        chatMessage.push({
+        role: "user",
+        content:  `Question: ${userQuery}. Context: ${contextData}`})
+        console.log(`Context Data: ${contextData}`)
+
+        const stream = await openai_client.chat.completions.create({
+            model: process.env.AI_MODEL,
+            messages: chatMessage,
+            stream: true
+        })
+        process.stdout.write("Thinking... ");
+        for await(const chunk of stream){
+            const content = chunk.choices[0]?.delta?.content || ""
+            process.stdout.write(content);
+        }
+
+    } catch (error) {
+        process.stdout.write("context_chaining.js", " :: chat() :: Error ❌ : ", error);
+    }
+}
+
 
 async function chat(query){
     console.log(" Analysing  user Input....")   
     const matchedData = await getSearchTool(query)
     console.log("Thinking .....")
-    await getChatCompletion(query,matchedData) 
+    //await getChatCompletion(query,matchedData) 
+    await getChatCompletionStream(query,matchedData)
     
 
 }
