@@ -14,8 +14,12 @@
     "vite": "^8.0.12"
   },
   "dependencies": {
+    "@langchain/core": "^1.1.48",
+    "@langchain/openai": "^1.4.7",
+    "@langchain/textsplitters": "^1.0.1",
     "@supabase/supabase-js": "^2.106.2",
     "dotenv": "^17.4.2",
+    "langchain": "^1.4.2",
     "openai": "^6.39.0"
   }
 }
