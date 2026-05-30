@@ -1,12 +1,11 @@
 import {openai_client, subase_client} from '../config.js';
-import {getSearchTool } from './embedding_master.js'
+import {getPodCastSearchTool } from './embedding_master.js'
 
 const chatMessage = [{
     role: "system",
-    content: `You are a Podcast enthusiasist. You have to rformulate suggestion based on 2 information
-    provided to you. A question and a context. Do not make up anything. If you dont know the answer or dont have the context, say you 
-    you dont know. In case at any point you see an error in Question 
-    or context, tell the user that you are getting an error with the Error message and any suggestion on how to fix it.`
+    content: `You are a Podcast enthusiast. You have to give suggestion based on exactly 2 information
+    provided to you. A question and a context. Do not make up anything. If you dont know the answer or
+     dont have the context, say you answer with, say dont know.`
     
 }]
 
@@ -53,7 +52,7 @@ async function getChatCompletionStream(userQuery, contextData) {
 
 async function chat(query){
     console.log(" Analysing  user Input....")   
-    const matchedData = await getSearchTool(query)
+    const matchedData = await getPodCastSearchTool(query)
     console.log("Thinking .....")
     //await getChatCompletion(query,matchedData) 
     await getChatCompletionStream(query,matchedData)

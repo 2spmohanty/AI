@@ -4,14 +4,13 @@
 # Python (uv) + JavaScript (node/npx)
 # ══════════════════════════════════════════════
 
-# ── SECRETS — never commit these ──────────────
+
 .env
 .env.local
 .env.*.local
 *.env
 .envrc
 
-# ── PYTHON (uv managed) ───────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -19,7 +18,6 @@ __pycache__/
 *.pyd
 .Python
 
-# uv / virtualenv
 .venv/
 venv/
 env/

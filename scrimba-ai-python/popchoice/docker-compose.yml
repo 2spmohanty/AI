@@ -1,0 +1,31 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: popchoice-backend
+    ports:
+      - "7070:7070"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7070/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: popchoice-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:7070
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
