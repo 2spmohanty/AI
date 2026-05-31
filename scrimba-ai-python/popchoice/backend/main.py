@@ -146,6 +146,34 @@ async def search_movies_by_embedding(embedding: List[float], limit: int = 10) ->
         log(f"  Candidate: '{c.get('title')}' | similarity: {c.get('similarity', 'n/a'):.4f}")
     return candidates
 
+async def search_movies_by_chroma(embedding: List[float], limit: int = 10) -> List[dict]:
+    """
+    Local Chroma alternative to Supabase vector search.
+    Uses the same movies collection you built during ingestion.
+    """
+    import chromadb
+    from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
+    log(f"Calling Chroma Query function |  | limit: {limit}")
+    chroma_client = chromadb.PersistentClient(path="../../data/chroma_db/movies_db")
+
+
+    collection = chroma_client.get_or_create_collection(name="movies_collection")
+
+    results = collection.query(
+        query_embeddings=[embedding],
+        n_results=limit,
+        include=["documents", "metadatas"]
+    )
+
+    candidates = []
+    for doc, meta in zip(results["documents"][0], results["metadatas"][0]):
+        candidates.append({
+            "title":     meta.get("title", ""),
+            "content":   doc,
+            "image_url": meta.get("image_url"),
+            "year":      meta.get("year", ""),
+        })
+    return candidates
 
 # chat completion
 
@@ -240,7 +268,8 @@ async def recommend(request: MovieNightRequest):
     #  vector search Supabase
     log(f"[{request_id}] Matching — Searching Vector DB")
     t = time.perf_counter()
-    candidates = await search_movies_by_embedding(embedding, limit=10)
+    #candidates = await search_movies_by_embedding(embedding, limit=10)
+    candidates = await search_movies_by_chroma(embedding, limit=10)
     log(f"[{request_id}] Search complete | {len(candidates)} candidates | {time.perf_counter()-t:.2f}s")
 
     # chat completion structired output
