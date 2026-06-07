@@ -24,7 +24,9 @@ v2: Anthropic tool_use — structured, schema-enforced, production-grade
 - **Output schema:** The response must be structured JSON, not free text. Downstream systems consume it.
 - **Safety:** If the agent is >70% uncertain, it must route to a human. No silent failures.
 
+---
 
+## PRIMARY ERROR CATEGORIES
 
 | # | Type | Root Cause Signal |
 |---|------|-------------------|
@@ -33,6 +35,59 @@ v2: Anthropic tool_use — structured, schema-enforced, production-grade
 | 3 | Schema Mismatch | decimal/string on `total_amount` |
 | 4 | Lost Executor | RPC disassociation |
 | 5 | Task Timeout | TaskKilled after 120000ms |
+
+---
+
+
+## TRAINING DATA and VECTOR DB Operation
+
+```mermaid
+
+sequenceDiagram
+    autonumber
+    actor Dev as Developer / execution context
+    participant ING as ingestion::ingest_log_file
+    participant VOPS_P as vector_ops::parse_log
+    participant LC as LangChain (RecursiveCharacterTextSplitter)
+    participant CHROMA as ChromaDB Collection
+    participant HF_HUB as Hugging Face Hub (Cloud Cache)
+
+    Note over Dev, ING: Phase 1: Ingestion Trigger
+    Dev->>ING: Calls with ("path/to/spark_executor.log")
+    ING->>VOPS_P: Passes filepath to extraction engine
+    
+    Note over VOPS_P, LC: Phase 2: Structural Clean & Smart Chunking
+    VOPS_P->>VOPS_P: Reads file into memory & runs fast CRITICAL_KEYWORDS scan
+    alt 0 Anomaly Footprints Identified
+        VOPS_P-->>ING: Returns empty list []
+        ING-->>Dev: Logs "Skipping file: No error footprints detected."
+    else Error Keywords Present
+        VOPS_P->>LC: Sends raw log text string to text_splitter.create_documents()
+        Note over LC: LangChain splits logs safely using separators [\n, " | ", " "]
+        LC-->>VOPS_P: Returns list of LangChain Document objects (< 1200 chars each)
+    end
+
+    Note over VOPS_P, CHROMA: Phase 3: Metadata Extraction & Schema Mapping
+    loop For Each LangChain Document Chunk
+        VOPS_P->>VOPS_P: Regex extracts Timestamp & Log Level (ERROR/WARN)
+        VOPS_P->>VOPS_P: Drops standard INFO text fragments to eliminate vector noise
+        VOPS_P->>VOPS_P: Compiles entry mapping into Chroma standard {"id", "document", "metadata"}
+    end
+    VOPS_P-->>ING: Returns list of formatted candidate dictionaries
+
+    Note over ING, HF_HUB: Phase 4: Vector Generation & Storage Ingestion
+    rect rgb(30, 40, 50)
+        ING->>CHROMA: Calls collection.upsert(ids, documents, metadatas)
+        Note over CHROMA: Chroma intercepts text fields via hf_embedding_fn
+        CHROMA->>HF_HUB: Requests mathematical token vector arrays (Checks local cache first)
+        HF_HUB-->>CHROMA: Returns 384-dimensional dense float vector embeddings
+        CHROMA->>CHROMA: Indexes arrays into local disk using Cosine Similarity Distance Model
+    end
+    
+    CHROMA-->>ING: Upsert transactional confirmation
+    ING-->>Dev: Logs "Successfully ingested X anomaly segments."
+
+```
 
 ---
 
