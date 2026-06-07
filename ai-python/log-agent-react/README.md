@@ -1,21 +1,66 @@
 
-# SCENARIO: ABC's engineering team receives 10,000+ internal Spark job failure logs per week across EMR clusters. 
+# Automated EMR/Spark Log Triage Agent: Technical Architecture Document## Project Objective
 
-### L1 triage takes ~2 hours per engineer per day — reading stack traces, matching to known failure patterns, escalating. 
+The ABC engineering ecosystem executes high-throughput distributed workflows generating over 10,000 internal Apache Spark job failures weekly across production Amazon EMR clusters. Manual L1 triage currently consumes approximately 2 engineering hours per team member daily. This process relies on repetitive tasks: parsing multi-line Java/Scala stack traces, matching signatures to legacy runbooks, and routing escalations.
+This project implements an Automated Log Triage Agent designed to ingest raw Spark/YARN container failure logs and output an instantly actionable, schema-enforced diagnostic payload.
 
-### GOAL:
+![logsentry.png](../images/logsentry.png)
 
-I have to build a "Log Triage Agent" that can ingest a Spark failure log and return a structured diagnosis: 
-   ** root cause category, confidence, recommended action, and whether human escalation is needed.
+                        
+------------------------------
+## Technical KPIs & Implementation Targets
+This project evaluates two structural variations of the agent loop:
 
-### IMPLEMENTATION KPI
+* v1: Manual ReAct (Deterministic Iteration): Built using an explicit string-parsing text loop driven by gpt-5-mini. It acts as a transparent, auditable state machine where tool selection is extracted via regular expressions.
+* v2: Native Tool Use (Production Grade): Leverages Anthropic’s structured tool_use schema arrays to enforce strict JSON compliance at the model compilation boundary.
 
-v1: Manual ReAct — string parsing, explicit loop, *Expectation* Can be fragile but transparent
-v2: Anthropic tool_use — structured, schema-enforced, production-grade
+------------------------------
+## System Constraints & Engineering Guards
+
+### 1. Latency Profile
+
+* Target: Interactive diagnostic generation must resolve in under 10 seconds.
+* Design Pattern: Heavy context preparation—including text token chunking and categorical dictionary lookups—runs in local memory before calling the model endpoint.
+
+### 2. Context Windows & Token Budgets
+
+* Target: Strict 2,000 input tokens max per inference loop call.
+* Design Pattern: Raw log payloads often exceed 50KB. The system uses LangChain’s RecursiveCharacterTextSplitter combined with keyword-filtering rules to strip clean INFO lines. This preserves only critical exception signatures, preventing token bloat.
+
+### 3. Accuracy & Guardrails
+
+* Target: Zero ungrounded predictions (hallucinations).
+* Design Pattern: If a signature does not match records in the local ChromaDB database or your custom error index maps, the model outputs unknown_exception_set.
+
+### 4. Integration Specifications
+
+* Target: At least one tool execution per diagnostic loop.
+* Design Pattern: The agent interacts with four functional hooks:
+* extract_error_signature() (Isolates error signatures using regex pattern matching).
+   * lookup_known_error() (Checks your static error categories and fetches runbook solutions).
+   * query_vector_store() (Searches historical logs in ChromaDB using local cosine similarity).
+   * classify_severity() (Evaluates infrastructure risks, focusing on driver vs. executor OOM issues).
+
+### 5. Downstream Target Schema
+
+* Target: Clean JSON response strings matching downstream logging systems.
+* Design Pattern: The system uses OpenAI Structured Outputs (json_schema) to guarantee the final payload always returns four exact fields:
+
+{
+  "error_type": "string",
+  "root_cause": "string",
+  "recommendation": "string",
+  "confidence": 0.0
+}
 
 
+### 6. Safety Escalation Router
 
-#### Constraints
+* Target: Safe routing of uncertain errors.
+* Design Pattern: If the agent's confidence falls below 0.70 (70%), the pipeline triggers an alert flag. This stops automated fixes and safely escalates the traceback to a human engineer.
+
+
+### Constraints
 
 - **Latency:** A triage result must return in under 10 seconds for interactive use. Async is fine for batch.
 - **Cost:** Cannot send full 50KB log files to the LLM. Token budget per call: ~2,000 input tokens max.
@@ -39,7 +84,7 @@ v2: Anthropic tool_use — structured, schema-enforced, production-grade
 ---
 
 
-## TRAINING DATA and VECTOR DB Operation
+## INGESTION
 
 ```mermaid
 
@@ -92,7 +137,7 @@ sequenceDiagram
 ---
 
 
-## REACT AGENT FUNCTION CALLING
+## AGENT FLOW
 
 ```mermaid
 sequenceDiagram
