@@ -1,0 +1,18 @@
+2026-06-07 16:46:58 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 29
+2026-06-07 16:02:06 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 12.0 in stage 29.0 (TID46852, container_20260607_0007_01_000014, executor 2, partition 12, NODE_LOCAL)
+2026-06-07 16:06:27 WARN org.apache.spark.executor.Executor: Task 12.0 in stage 29.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:03:34 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 12.0 in stage 29.0 (TID46852) on executor 2: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job4.py", line 113, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://logs-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:269)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1208)
+
+2026-06-07 16:21:26 ERROR org.apache.spark.scheduler.DAGScheduler: Job0111812 21 failed: write at TimeoutJob.scala:57, took 104.884 s
+2026-06-07 16:23:44 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 2 removed after task timeout and missed heartbeat.

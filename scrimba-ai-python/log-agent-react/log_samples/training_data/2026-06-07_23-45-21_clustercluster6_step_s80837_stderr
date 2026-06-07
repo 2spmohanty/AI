@@ -1,0 +1,313 @@
+2026-06-07 16:52:41 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://data-bucket/protected/
+2026-06-07 16:02:35 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:21:26 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:845)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:65)
+
+2026-06-07 16:26:52 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:40:32 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:00:13 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:36:40 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-8-44, 30006, None)
+2026-06-07 16:23:12 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 11
+2026-06-07 16:26:03 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 190.0 in stage 11.0 (TID950, container_0446897, executor 7, partition 190, PROCESS_LOCAL)
+2026-06-07 16:47:24 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 190.0 in stage 11.0 (TID950) in 73675 ms
+2026-06-07 16:15:12 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 51000000 bytes total, starting serialization...
+2026-06-07 16:09:51 ERROR org.apache.spark.scheduler.DAGScheduler: Job failed due to driver-side out of memory condition.
+
+java.lang.OutOfMemoryError: Not enough memory to build and broadcast the table to all worker nodes.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:131)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:105)
+
+2026-06-07 16:46:42 ERROR org.apache.spark.executor.Executor: Task 41.0 in stage 2.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3256)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:103)
+
+2026-06-07 16:55:35 ERROR org.apache.spark.executor.Executor: Task 54.0 in stage 4.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:169)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:103)
+
+2026-06-07 16:06:51 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_84703 failed due to unrecoverable executor loss.
+
+2026-06-07 16:07:15 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 35
+2026-06-07 16:42:00 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 112.0 in stage 35.0 (TID450, container_20260607_0001_01_000003, executor 6, partition 112, NODE_LOCAL)
+2026-06-07 16:04:04 WARN org.apache.spark.executor.Executor: Task 112.0 in stage 35.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:09:50 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 112.0 in stage 35.0 (TID450) on executor 6: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job10.py", line 110, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://data-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:275)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1239)
+
+2026-06-07 16:14:37 ERROR org.apache.spark.scheduler.DAGScheduler: Job9403288 10 failed: write at TimeoutJob.scala:61, took 104.884 s
+2026-06-07 16:09:37 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 6 removed after task timeout and missed heartbeat.
+
+2026-06-07 16:49:20 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:57:40 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:35:25 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-6-33, 32887, None)
+2026-06-07 16:24:56 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 4
+2026-06-07 16:11:03 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 115.0 in stage 4.0 (TID613, container_7528, executor 7, partition 115, PROCESS_LOCAL)
+2026-06-07 16:48:01 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 115.0 in stage 4.0 (TID613) in 62997 ms
+2026-06-07 16:19:14 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 44000000 bytes total, starting serialization...
+2026-06-07 16:40:10 ERROR org.apache.spark.scheduler.DAGScheduler: Job failed due to driver-side out of memory condition.
+
+java.lang.OutOfMemoryError: Java heap space exhausted during broadcast serialization.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:144)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:242)
+
+2026-06-07 16:05:55 ERROR org.apache.spark.executor.Executor: Task 23.0 in stage 1.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3211)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:229)
+
+2026-06-07 16:53:00 ERROR org.apache.spark.executor.Executor: Task 11.0 in stage 5.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:101)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:240)
+
+2026-06-07 16:22:01 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_37006664 failed due to unrecoverable executor loss.
+
+2026-06-07 16:19:30 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:15:17 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:21:27 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-8-44, 33003, None)
+2026-06-07 16:19:39 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 7
+2026-06-07 16:53:17 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 70.0 in stage 7.0 (TID1760, container_4068, executor 3, partition 70, PROCESS_LOCAL)
+2026-06-07 16:49:02 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 70.0 in stage 7.0 (TID1760) in 57287 ms
+2026-06-07 16:05:15 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 50000000 bytes total, starting serialization...
+2026-06-07 16:51:44 ERROR org.apache.spark.scheduler.DAGScheduler: Job failed due to driver-side out of memory condition.
+
+java.lang.OutOfMemoryError: Java heap space exhausted during broadcast serialization.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:186)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:241)
+
+2026-06-07 16:24:07 ERROR org.apache.spark.executor.Executor: Task 28.0 in stage 3.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3245)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:203)
+
+2026-06-07 16:14:52 ERROR org.apache.spark.executor.Executor: Task 55.0 in stage 5.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:185)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:226)
+
+2026-06-07 16:07:02 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_6734878 failed due to unrecoverable executor loss.
+
+2026-06-07 16:18:11 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:53:32 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:47:37 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-8-44, 35942, None)
+2026-06-07 16:39:32 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 3
+2026-06-07 16:14:39 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 70.0 in stage 3.0 (TID618, container_7162, executor 9, partition 70, PROCESS_LOCAL)
+2026-06-07 16:55:29 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 70.0 in stage 3.0 (TID618) in 75921 ms
+2026-06-07 16:43:26 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 62000000 bytes total, starting serialization...
+2026-06-07 16:52:24 ERROR org.apache.spark.scheduler.DAGScheduler: Job failed due to driver-side out of memory condition.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:192)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:173)
+
+2026-06-07 16:00:21 ERROR org.apache.spark.executor.Executor: Task 42.0 in stage 3.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3052)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:137)
+
+2026-06-07 16:56:14 ERROR org.apache.spark.executor.Executor: Task 36.0 in stage 1.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:110)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:187)
+
+2026-06-07 16:02:31 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_5486613 failed due to unrecoverable executor loss.
+
+2026-06-07 16:22:09 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:25:56 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:51:41 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 30557, None)
+2026-06-07 16:26:53 INFO org.apache.spark.scheduler.DAGScheduler: Job73366 6 finished: count at JobRunner.scala:52
+2026-06-07 16:24:10 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job73366
+
+2026-06-07 16:10:56 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://logs-bucket/protected/
+2026-06-07 16:31:03 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: test_user
+2026-06-07 16:03:27 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:846)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:70)
+
+2026-06-07 16:19:41 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:37:14 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:41:01 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:06:05 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 35066, None)
+2026-06-07 16:54:12 INFO org.apache.spark.scheduler.DAGScheduler: Job17634923 10 finished: count at JobRunner.scala:20
+2026-06-07 16:42:34 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job17634923
+
+2026-06-07 16:53:37 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 25
+2026-06-07 16:27:17 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 69.0 in stage 25.0 (TID621, container_20260607_0007_01_000014, executor 8, partition 69, NODE_LOCAL)
+2026-06-07 16:38:40 WARN org.apache.spark.executor.Executor: Task 69.0 in stage 25.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:00:57 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 69.0 in stage 25.0 (TID621) on executor 8: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job17.py", line 114, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://prod-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:256)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1239)
+
+2026-06-07 16:16:39 ERROR org.apache.spark.scheduler.DAGScheduler: Job305237 5 failed: write at TimeoutJob.scala:57, took 115.884 s
+2026-06-07 16:49:50 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 8 removed after task timeout and missed heartbeat.
+
+2026-06-07 16:48:04 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:06:56 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:19:17 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:822)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:62)
+
+2026-06-07 16:43:28 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:17:48 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:03:02 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:21:44 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:834)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:61)
+
+2026-06-07 16:13:23 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:32:30 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:23:38 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: test_user
+2026-06-07 16:41:17 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:816)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:62)
+
+2026-06-07 16:23:32 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:57:48 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_28
+2026-06-07 16:59:38 INFO org.apache.spark.internal.Logging: Reading input files from s3a://prod-bucket/warehouse/analytics/
+2026-06-07 16:45:51 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 8 partitions from path: s3a://prod-bucket/warehouse/analytics/
+
+2026-06-07 16:11:58 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader4.py", line 88, in <module>
+    df.write.mode("append").saveAsTable("prod.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1574, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: event_ts (timestamp)
+    target column: event_ts (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:128)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:86)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:637)
+
+2026-06-07 16:07:02 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:26:19 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:48:01 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:36:05 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 39905, None)
+2026-06-07 16:31:55 INFO org.apache.spark.scheduler.DAGScheduler: Job48430579 7 finished: count at JobRunner.scala:43
+2026-06-07 16:22:21 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job48430579
+
+2026-06-07 16:50:27 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:05:37 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:12:16 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-6-33, 33073, None)
+2026-06-07 16:32:39 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 10
+2026-06-07 16:37:34 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 158.0 in stage 10.0 (TID29528, container_8879925, executor 2, partition 158, PROCESS_LOCAL)
+2026-06-07 16:26:40 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 158.0 in stage 10.0 (TID29528) in 88891 ms
+2026-06-07 16:16:21 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 47000000 bytes total, starting serialization...
+2026-06-07 16:23:51 ERROR org.apache.spark.scheduler.DAGScheduler: Application failed due to broadcast join driver OOM.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:186)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:148)
+
+2026-06-07 16:53:56 ERROR org.apache.spark.executor.Executor: Task 29.0 in stage 4.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3031)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:217)
+
+2026-06-07 16:30:01 ERROR org.apache.spark.executor.Executor: Task 49.0 in stage 2.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:131)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:114)
+
+2026-06-07 16:55:08 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_961838 failed due to unrecoverable executor loss.
+
+2026-06-07 16:40:52 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:00:36 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:39:48 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 39918, None)
+2026-06-07 16:45:33 INFO org.apache.spark.scheduler.DAGScheduler: Job3253262 6 finished: count at JobRunner.scala:69
+2026-06-07 16:08:56 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job3253262
+
+2026-06-07 16:40:52 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:56:32 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:40:00 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 34792, None)
+2026-06-07 16:25:52 INFO org.apache.spark.scheduler.DAGScheduler: Job3040 5 finished: count at JobRunner.scala:94
+2026-06-07 16:57:36 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job3040
+
+2026-06-07 16:27:48 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_23
+2026-06-07 16:56:02 INFO org.apache.spark.internal.Logging: Reading input files from s3a://prod-bucket/landing/orders/
+2026-06-07 16:25:28 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 7 partitions from path: s3a://prod-bucket/landing/orders/
+
+2026-06-07 16:30:29 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader13.py", line 83, in <module>
+    df.write.mode("append").saveAsTable("warehouse.orders")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1556, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: customer_id (bigint)
+    target column: customer_id (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `warehouse`.`orders`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:129)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:80)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:605)
+
+2026-06-07 16:51:09 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:17:55 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_18
+2026-06-07 16:28:44 INFO org.apache.spark.internal.Logging: Reading input files from s3a://data-bucket/warehouse/analytics/
+2026-06-07 16:45:18 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 4 partitions from path: s3a://data-bucket/warehouse/analytics/
+
+2026-06-07 16:47:03 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader7.py", line 83, in <module>
+    df.write.mode("append").saveAsTable("warehouse.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1584, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: customer_id (bigint)
+    target column: customer_id (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `warehouse`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:126)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:73)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:628)
+
+2026-06-07 16:56:17 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.

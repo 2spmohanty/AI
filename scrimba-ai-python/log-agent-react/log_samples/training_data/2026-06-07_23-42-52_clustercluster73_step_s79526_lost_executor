@@ -1,0 +1,19 @@
+2026-06-07 16:47:15 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 7
+2026-06-07 16:33:12 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 144.0 in stage 7.0 (TID85233, container_20260607_0001_01_000002, executor 1, partition 144, NODE_LOCAL)
+2026-06-07 16:13:27 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 144.0 in stage 7.0 (TID85233) on executor 1: ExecutorLostFailure
+2026-06-07 16:50:24 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 1 on ip-10-12-7-18: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner7.py", line 195, in <module>
+    result = df.groupby("customer_id").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1212, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 144 in stage 7.0 failed 4 times, most recent failure: Lost task 144.0 in stage 7.0 (TID85233) on executor 1
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2214)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2386)
+
+2026-06-07 16:33:53 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 7 after executor loss
+2026-06-07 16:38:00 ERROR org.apache.spark.scheduler.DAGScheduler: Job24164 8 failed: count at JobRunner.scala:66, took 10.118 s

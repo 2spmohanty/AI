@@ -1,0 +1,25 @@
+2026-06-07 16:45:30 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:00:12 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:45:27 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-8-44, 37976, None)
+2026-06-07 16:30:47 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 12
+2026-06-07 16:40:39 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 97.0 in stage 12.0 (TID122, container_30935, executor 4, partition 97, PROCESS_LOCAL)
+2026-06-07 16:43:24 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 97.0 in stage 12.0 (TID122) in 83527 ms
+2026-06-07 16:15:45 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 41000000 bytes total, starting serialization...
+2026-06-07 16:04:44 ERROR org.apache.spark.scheduler.DAGScheduler: Application failed due to broadcast join driver OOM.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:195)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:133)
+
+2026-06-07 16:40:36 ERROR org.apache.spark.executor.Executor: Task 40.0 in stage 2.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3203)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:212)
+
+2026-06-07 16:45:54 ERROR org.apache.spark.executor.Executor: Task 11.0 in stage 4.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:192)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:204)
+
+2026-06-07 16:32:22 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_9986330 failed due to unrecoverable executor loss.

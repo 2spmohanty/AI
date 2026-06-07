@@ -1,0 +1,9 @@
+2026-06-07 16:57:25 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://logs-bucket/protected/
+2026-06-07 16:18:08 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:55:04 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:842)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:60)
+
+2026-06-07 16:31:18 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.

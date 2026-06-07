@@ -1,0 +1,235 @@
+2026-06-07 16:20:08 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:43:43 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:29:10 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 33568, None)
+2026-06-07 16:41:54 INFO org.apache.spark.scheduler.DAGScheduler: Job55465077 8 finished: count at JobRunner.scala:39
+2026-06-07 16:52:14 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job55465077
+
+2026-06-07 16:37:25 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_10
+2026-06-07 16:50:14 INFO org.apache.spark.internal.Logging: Reading input files from s3a://prod-bucket/landing/orders/
+2026-06-07 16:00:20 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 7 partitions from path: s3a://prod-bucket/landing/orders/
+
+2026-06-07 16:49:20 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader2.py", line 95, in <module>
+    df.write.mode("append").saveAsTable("prod.transactions")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1550, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: region (string)
+    target column: region (int)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`transactions`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:126)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:73)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:641)
+
+2026-06-07 16:12:30 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:48:17 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:26:44 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:51:59 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:847)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:61)
+
+2026-06-07 16:24:05 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:26:47 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:45:24 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:53:04 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 31204, None)
+2026-06-07 16:57:24 INFO org.apache.spark.scheduler.DAGScheduler: Job942638 5 finished: count at JobRunner.scala:64
+2026-06-07 16:40:44 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job942638
+
+2026-06-07 16:27:31 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_3
+2026-06-07 16:15:03 INFO org.apache.spark.internal.Logging: Reading input files from s3a://synthetic-bucket/landing/orders/
+2026-06-07 16:01:56 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 4 partitions from path: s3a://synthetic-bucket/landing/orders/
+
+2026-06-07 16:11:04 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader19.py", line 100, in <module>
+    df.write.mode("append").saveAsTable("warehouse.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1545, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: customer_id (bigint)
+    target column: customer_id (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `warehouse`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:124)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:80)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:609)
+
+2026-06-07 16:47:09 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:43:01 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:17:07 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:52:46 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 31575, None)
+2026-06-07 16:30:37 INFO org.apache.spark.scheduler.DAGScheduler: Job157485 4 finished: count at JobRunner.scala:70
+2026-06-07 16:30:13 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job157485
+
+2026-06-07 16:32:42 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 10
+2026-06-07 16:52:09 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 30.0 in stage 10.0 (TID231, container_20260607_0001_01_000002, executor 9, partition 30, NODE_LOCAL)
+2026-06-07 16:15:07 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 30.0 in stage 10.0 (TID231) on executor 9: ExecutorLostFailure
+2026-06-07 16:59:07 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 9 on ip-10-12-8-44: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner4.py", line 129, in <module>
+    result = df.groupby("product_id").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1222, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 30 in stage 10.0 failed 3 times, most recent failure: Lost task 30.0 in stage 10.0 (TID231) on executor 9
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2027)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2389)
+
+2026-06-07 16:41:33 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 10 after executor loss
+2026-06-07 16:17:38 ERROR org.apache.spark.scheduler.DAGScheduler: Job09407224 13 failed: count at JobRunner.scala:15, took 23.118 s
+
+2026-06-07 16:30:03 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:25:32 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:27:04 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 39290, None)
+2026-06-07 16:05:16 INFO org.apache.spark.scheduler.DAGScheduler: Job8469 9 finished: count at JobRunner.scala:33
+2026-06-07 16:13:24 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job8469
+
+2026-06-07 16:10:10 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:19:48 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:41:59 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 33000, None)
+2026-06-07 16:36:43 INFO org.apache.spark.scheduler.DAGScheduler: Job34282496 2 finished: count at JobRunner.scala:93
+2026-06-07 16:30:46 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job34282496
+
+2026-06-07 16:29:51 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:22:44 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:26:40 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:838)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:64)
+
+2026-06-07 16:38:33 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:12:10 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 30
+2026-06-07 16:08:19 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 33.0 in stage 30.0 (TID66343, container_20260607_0001_01_000001, executor 10, partition 33, NODE_LOCAL)
+2026-06-07 16:19:01 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 33.0 in stage 30.0 (TID66343) on executor 10: ExecutorLostFailure
+2026-06-07 16:11:39 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 10 on ip-10-12-9-21: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner11.py", line 175, in <module>
+    result = df.groupby("product_id").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1280, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 33 in stage 30.0 failed 5 times, most recent failure: Lost task 33.0 in stage 30.0 (TID66343) on executor 10
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2106)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2374)
+
+2026-06-07 16:29:44 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 30 after executor loss
+2026-06-07 16:31:48 ERROR org.apache.spark.scheduler.DAGScheduler: Job24617763 1 failed: count at JobRunner.scala:34, took 30.118 s
+
+2026-06-07 16:13:43 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://prod-bucket/protected/
+2026-06-07 16:28:26 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:01:23 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:813)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:61)
+
+2026-06-07 16:43:36 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:36:59 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:18:51 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:18:36 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 32982, None)
+2026-06-07 16:44:41 INFO org.apache.spark.scheduler.DAGScheduler: Job86540171 10 finished: count at JobRunner.scala:99
+2026-06-07 16:52:59 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job86540171
+
+2026-06-07 16:07:45 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:38:11 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:43:28 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-9-21, 31951, None)
+2026-06-07 16:21:14 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 3
+2026-06-07 16:26:51 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 107.0 in stage 3.0 (TID97625, container_09905, executor 1, partition 107, PROCESS_LOCAL)
+2026-06-07 16:44:07 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 107.0 in stage 3.0 (TID97625) in 50108 ms
+2026-06-07 16:10:46 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 53000000 bytes total, starting serialization...
+2026-06-07 16:28:59 ERROR org.apache.spark.scheduler.DAGScheduler: Job failed due to driver-side out of memory condition.
+
+java.lang.OutOfMemoryError: Not enough memory to build and broadcast the table to all worker nodes.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:176)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:131)
+
+2026-06-07 16:30:50 ERROR org.apache.spark.executor.Executor: Task 29.0 in stage 3.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3283)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:205)
+
+2026-06-07 16:40:37 ERROR org.apache.spark.executor.Executor: Task 32.0 in stage 5.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:150)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:116)
+
+2026-06-07 16:08:14 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_3581196 failed due to unrecoverable executor loss.
+
+2026-06-07 16:03:12 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:28:57 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:59:54 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 33231, None)
+2026-06-07 16:20:50 INFO org.apache.spark.scheduler.DAGScheduler: Job7523 6 finished: count at JobRunner.scala:30
+2026-06-07 16:27:51 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job7523
+
+2026-06-07 16:03:06 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:48:14 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:23:17 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 32891, None)
+2026-06-07 16:51:11 INFO org.apache.spark.scheduler.DAGScheduler: Job04179 9 finished: count at JobRunner.scala:35
+2026-06-07 16:58:54 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job04179
+
+2026-06-07 16:51:57 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:39:03 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:19:58 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 39500, None)
+2026-06-07 16:56:47 INFO org.apache.spark.scheduler.DAGScheduler: Job74661066 3 finished: count at JobRunner.scala:57
+2026-06-07 16:54:02 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job74661066
+
+2026-06-07 16:51:08 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://prod-bucket/protected/
+2026-06-07 16:31:28 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:47:29 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:813)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:68)
+
+2026-06-07 16:57:19 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:46:25 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://synthetic-bucket/protected/
+2026-06-07 16:34:43 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:41:33 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:835)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:66)
+
+2026-06-07 16:51:04 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:10:18 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_9
+2026-06-07 16:04:29 INFO org.apache.spark.internal.Logging: Reading input files from s3a://synthetic-bucket/landing/orders/
+2026-06-07 16:06:43 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 11 partitions from path: s3a://synthetic-bucket/landing/orders/
+
+2026-06-07 16:03:47 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader7.py", line 80, in <module>
+    df.write.mode("append").saveAsTable("prod.transactions")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1528, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: total_amount (decimal(18,2))
+    target column: total_amount (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`transactions`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:129)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:71)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:629)
+
+2026-06-07 16:20:37 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.

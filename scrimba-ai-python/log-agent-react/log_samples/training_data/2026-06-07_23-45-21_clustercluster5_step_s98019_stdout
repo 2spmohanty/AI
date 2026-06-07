@@ -1,0 +1,343 @@
+2026-06-07 16:20:27 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:25:09 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:36:03 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-7-18, 36756, None)
+2026-06-07 16:22:00 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 9
+2026-06-07 16:20:40 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 79.0 in stage 9.0 (TID515, container_894783, executor 7, partition 79, PROCESS_LOCAL)
+2026-06-07 16:45:54 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 79.0 in stage 9.0 (TID515) in 83828 ms
+2026-06-07 16:28:12 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 54000000 bytes total, starting serialization...
+2026-06-07 16:33:36 ERROR org.apache.spark.scheduler.DAGScheduler: Application failed due to broadcast join driver OOM.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:198)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:246)
+
+2026-06-07 16:14:09 ERROR org.apache.spark.executor.Executor: Task 28.0 in stage 2.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3007)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:252)
+
+2026-06-07 16:31:52 ERROR org.apache.spark.executor.Executor: Task 46.0 in stage 5.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:195)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:111)
+
+2026-06-07 16:04:47 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_61136 failed due to unrecoverable executor loss.
+
+2026-06-07 16:38:04 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://logs-bucket/protected/
+2026-06-07 16:18:39 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:34:07 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:818)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:64)
+
+2026-06-07 16:26:52 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:43:28 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://data-bucket/protected/
+2026-06-07 16:47:06 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:38:06 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:809)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:70)
+
+2026-06-07 16:55:52 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:04:43 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_21
+2026-06-07 16:06:22 INFO org.apache.spark.internal.Logging: Reading input files from s3a://data-bucket/processed/events/
+2026-06-07 16:12:12 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 12 partitions from path: s3a://data-bucket/processed/events/
+
+2026-06-07 16:20:13 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader6.py", line 91, in <module>
+    df.write.mode("append").saveAsTable("prod.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1544, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: event_ts (timestamp)
+    target column: event_ts (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:123)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:85)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:640)
+
+2026-06-07 16:41:43 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:42:12 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 10
+2026-06-07 16:25:47 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 57.0 in stage 10.0 (TID290, container_20260607_0001_01_000002, executor 7, partition 57, NODE_LOCAL)
+2026-06-07 16:32:40 WARN org.apache.spark.executor.Executor: Task 57.0 in stage 10.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:06:39 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 57.0 in stage 10.0 (TID290) on executor 7: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job4.py", line 107, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://logs-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:258)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1236)
+
+2026-06-07 16:28:34 ERROR org.apache.spark.scheduler.DAGScheduler: Job104042 30 failed: write at TimeoutJob.scala:54, took 123.884 s
+2026-06-07 16:30:06 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 7 removed after task timeout and missed heartbeat.
+
+2026-06-07 16:49:48 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 21
+2026-06-07 16:04:52 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 119.0 in stage 21.0 (TID813, container_20260607_0001_01_000002, executor 3, partition 119, NODE_LOCAL)
+2026-06-07 16:16:40 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 119.0 in stage 21.0 (TID813) on executor 3: ExecutorLostFailure
+2026-06-07 16:00:11 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 3 on ip-10-12-9-21: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner20.py", line 163, in <module>
+    result = df.groupby("customer_id").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1253, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 119 in stage 21.0 failed 5 times, most recent failure: Lost task 119.0 in stage 21.0 (TID813) on executor 3
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2049)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2437)
+
+2026-06-07 16:43:42 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 21 after executor loss
+2026-06-07 16:52:38 ERROR org.apache.spark.scheduler.DAGScheduler: Job21419810 11 failed: count at JobRunner.scala:27, took 10.118 s
+
+2026-06-07 16:57:57 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:00:36 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:53:27 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38302, None)
+2026-06-07 16:40:16 INFO org.apache.spark.scheduler.DAGScheduler: Job61994 9 finished: count at JobRunner.scala:47
+2026-06-07 16:00:10 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job61994
+
+2026-06-07 16:45:32 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:33:16 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:17:15 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 31603, None)
+2026-06-07 16:31:27 INFO org.apache.spark.scheduler.DAGScheduler: Job7923343 10 finished: count at JobRunner.scala:63
+2026-06-07 16:56:07 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job7923343
+
+2026-06-07 16:26:30 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:14:36 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:42:17 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38124, None)
+2026-06-07 16:58:53 INFO org.apache.spark.scheduler.DAGScheduler: Job84773408 1 finished: count at JobRunner.scala:20
+2026-06-07 16:13:50 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job84773408
+
+2026-06-07 16:30:37 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:02:50 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:03:06 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-9-21, 36653, None)
+2026-06-07 16:00:30 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 3
+2026-06-07 16:21:58 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 143.0 in stage 3.0 (TID368, container_612731, executor 1, partition 143, PROCESS_LOCAL)
+2026-06-07 16:55:09 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 143.0 in stage 3.0 (TID368) in 71903 ms
+2026-06-07 16:47:35 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 59000000 bytes total, starting serialization...
+2026-06-07 16:56:30 ERROR org.apache.spark.scheduler.DAGScheduler: Driver exceeded memory limits while building broadcast table.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:189)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:154)
+
+2026-06-07 16:03:35 ERROR org.apache.spark.executor.Executor: Task 53.0 in stage 1.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3265)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:107)
+
+2026-06-07 16:16:30 ERROR org.apache.spark.executor.Executor: Task 41.0 in stage 1.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:110)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:177)
+
+2026-06-07 16:53:14 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_79593453 failed due to unrecoverable executor loss.
+
+2026-06-07 16:36:41 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 20
+2026-06-07 16:35:05 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 89.0 in stage 20.0 (TID327, container_20260607_0001_01_000003, executor 5, partition 89, NODE_LOCAL)
+2026-06-07 16:23:35 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 89.0 in stage 20.0 (TID327) on executor 5: ExecutorLostFailure
+2026-06-07 16:22:07 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 5 on ip-10-12-9-21: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner5.py", line 165, in <module>
+    result = df.groupby("product_id").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1222, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 89 in stage 20.0 failed 5 times, most recent failure: Lost task 89.0 in stage 20.0 (TID327) on executor 5
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2389)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2450)
+
+2026-06-07 16:54:34 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 20 after executor loss
+2026-06-07 16:23:37 ERROR org.apache.spark.scheduler.DAGScheduler: Job7227 23 failed: count at JobRunner.scala:42, took 28.118 s
+
+2026-06-07 16:48:18 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_10
+2026-06-07 16:53:48 INFO org.apache.spark.internal.Logging: Reading input files from s3a://synthetic-bucket/input/transactions/
+2026-06-07 16:26:59 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 4 partitions from path: s3a://synthetic-bucket/input/transactions/
+
+2026-06-07 16:35:10 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader14.py", line 84, in <module>
+    df.write.mode("append").saveAsTable("analytics.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1569, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: event_ts (timestamp)
+    target column: event_ts (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `analytics`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:128)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:74)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:636)
+
+2026-06-07 16:44:47 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:37:56 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 14
+2026-06-07 16:42:25 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 19.0 in stage 14.0 (TID2673, container_20260607_0001_01_000002, executor 9, partition 19, NODE_LOCAL)
+2026-06-07 16:14:44 WARN org.apache.spark.executor.Executor: Task 19.0 in stage 14.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:53:09 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 19.0 in stage 14.0 (TID2673) on executor 9: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job10.py", line 115, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://synthetic-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:278)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1246)
+
+2026-06-07 16:53:17 ERROR org.apache.spark.scheduler.DAGScheduler: Job10265 12 failed: write at TimeoutJob.scala:59, took 104.884 s
+2026-06-07 16:31:03 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 9 removed after task timeout and missed heartbeat.
+
+2026-06-07 16:19:49 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 29
+2026-06-07 16:30:52 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 24.0 in stage 29.0 (TID0949, container_20260607_0001_01_000003, executor 5, partition 24, NODE_LOCAL)
+2026-06-07 16:47:24 WARN org.apache.spark.scheduler.TaskSetManager: Lost task 24.0 in stage 29.0 (TID0949) on executor 5: ExecutorLostFailure
+2026-06-07 16:36:29 ERROR org.apache.spark.scheduler.cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: Lost executor 5 on ip-10-12-9-21: remote Rpc client disassociated
+
+Traceback (most recent call last):
+  File "/opt/jobs/job_runner1.py", line 199, in <module>
+    result = df.groupby("region").count().collect()
+  File "/opt/spark/python/pyspark/sql/dataframe.py", line 1273, in collect
+    sock_info = self._jdf.collectToPython()
+py4j.protocol.Py4JJavaError: An error occurred while calling o87.collectToPython.
+
+Caused by: org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 24 in stage 29.0 failed 5 times, most recent failure: Lost task 24.0 in stage 29.0 (TID0949) on executor 5
+    at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2283)
+    at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2425)
+
+2026-06-07 16:46:44 WARN org.apache.spark.scheduler.TaskSetManager: Re-queueing tasks for stage 29 after executor loss
+2026-06-07 16:34:50 ERROR org.apache.spark.scheduler.DAGScheduler: Job4030257 30 failed: count at JobRunner.scala:73, took 23.118 s
+
+2026-06-07 16:02:29 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_13
+2026-06-07 16:38:27 INFO org.apache.spark.internal.Logging: Reading input files from s3a://prod-bucket/input/transactions/
+2026-06-07 16:09:18 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 12 partitions from path: s3a://prod-bucket/input/transactions/
+
+2026-06-07 16:26:12 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader7.py", line 93, in <module>
+    df.write.mode("append").saveAsTable("prod.orders")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1600, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: region (string)
+    target column: region (int)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`orders`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:124)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:72)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:633)
+
+2026-06-07 16:27:29 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:26:46 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://data-bucket/protected/
+2026-06-07 16:33:25 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: test_user
+2026-06-07 16:50:30 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:832)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:68)
+
+2026-06-07 16:54:01 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:33:38 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://logs-bucket/protected/
+2026-06-07 16:32:57 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: test_user
+2026-06-07 16:54:06 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:822)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:65)
+
+2026-06-07 16:57:11 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:09:34 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:19:00 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:25:54 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-7-18, 36311, None)
+2026-06-07 16:54:39 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 5
+2026-06-07 16:58:54 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 52.0 in stage 5.0 (TID46481, container_17850598, executor 8, partition 52, PROCESS_LOCAL)
+2026-06-07 16:32:53 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 52.0 in stage 5.0 (TID46481) in 56472 ms
+2026-06-07 16:44:35 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 63000000 bytes total, starting serialization...
+2026-06-07 16:59:56 ERROR org.apache.spark.scheduler.DAGScheduler: Driver exceeded memory limits while building broadcast table.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:165)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:169)
+
+2026-06-07 16:13:51 ERROR org.apache.spark.executor.Executor: Task 16.0 in stage 1.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3092)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:151)
+
+2026-06-07 16:36:05 ERROR org.apache.spark.executor.Executor: Task 17.0 in stage 3.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:164)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:200)
+
+2026-06-07 16:48:59 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_284083 failed due to unrecoverable executor loss.
+
+2026-06-07 16:15:50 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_20
+2026-06-07 16:31:25 INFO org.apache.spark.internal.Logging: Reading input files from s3a://synthetic-bucket/landing/orders/
+2026-06-07 16:18:17 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 11 partitions from path: s3a://synthetic-bucket/landing/orders/
+
+2026-06-07 16:19:16 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader7.py", line 100, in <module>
+    df.write.mode("append").saveAsTable("warehouse.orders")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1589, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: region (string)
+    target column: region (int)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `warehouse`.`orders`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:129)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:74)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:636)
+
+2026-06-07 16:40:22 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:31:43 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_17
+2026-06-07 16:38:00 INFO org.apache.spark.internal.Logging: Reading input files from s3a://synthetic-bucket/processed/events/
+2026-06-07 16:27:57 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 10 partitions from path: s3a://synthetic-bucket/processed/events/
+
+2026-06-07 16:41:49 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader16.py", line 82, in <module>
+    df.write.mode("append").saveAsTable("analytics.orders")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1587, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: event_ts (timestamp)
+    target column: event_ts (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `analytics`.`orders`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:129)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:78)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:642)
+
+2026-06-07 16:33:50 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.

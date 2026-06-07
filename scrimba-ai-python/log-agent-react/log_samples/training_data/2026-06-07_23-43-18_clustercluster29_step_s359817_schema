@@ -1,0 +1,21 @@
+2026-06-07 16:43:32 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_29
+2026-06-07 16:52:41 INFO org.apache.spark.internal.Logging: Reading input files from s3a://logs-bucket/input/transactions/
+2026-06-07 16:12:01 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 10 partitions from path: s3a://logs-bucket/input/transactions/
+
+2026-06-07 16:44:00 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader15.py", line 81, in <module>
+    df.write.mode("append").saveAsTable("analytics.transactions")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1500, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: event_ts (timestamp)
+    target column: event_ts (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `analytics`.`transactions`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:123)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:83)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:614)
+
+2026-06-07 16:38:56 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.

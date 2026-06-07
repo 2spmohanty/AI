@@ -1,0 +1,176 @@
+2026-06-07 16:58:20 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:19:46 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:15:42 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 39646, None)
+2026-06-07 16:33:33 INFO org.apache.spark.scheduler.DAGScheduler: Job0022 9 finished: count at JobRunner.scala:95
+2026-06-07 16:02:54 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job0022
+
+2026-06-07 16:06:02 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:09:42 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:54:58 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 33388, None)
+2026-06-07 16:14:09 INFO org.apache.spark.scheduler.DAGScheduler: Job71369715 3 finished: count at JobRunner.scala:89
+2026-06-07 16:21:15 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job71369715
+
+2026-06-07 16:12:49 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:30:55 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:46:20 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 37549, None)
+2026-06-07 16:01:22 INFO org.apache.spark.scheduler.DAGScheduler: Job29462962 6 finished: count at JobRunner.scala:57
+2026-06-07 16:31:33 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job29462962
+
+2026-06-07 16:20:40 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://prod-bucket/protected/
+2026-06-07 16:41:48 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: synthetic_user
+2026-06-07 16:48:59 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:833)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:69)
+
+2026-06-07 16:02:50 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:34:30 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:31:13 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:38:10 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38487, None)
+2026-06-07 16:06:27 INFO org.apache.spark.scheduler.DAGScheduler: Job2296 0 finished: count at JobRunner.scala:78
+2026-06-07 16:18:52 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job2296
+
+2026-06-07 16:12:30 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:48:00 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:46:06 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 32159, None)
+2026-06-07 16:33:51 INFO org.apache.spark.scheduler.DAGScheduler: Job93283768 9 finished: count at JobRunner.scala:36
+2026-06-07 16:23:53 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job93283768
+
+2026-06-07 16:33:47 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:20:09 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:27:59 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 36495, None)
+2026-06-07 16:44:25 INFO org.apache.spark.scheduler.DAGScheduler: Job9764 8 finished: count at JobRunner.scala:94
+2026-06-07 16:59:52 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job9764
+
+2026-06-07 16:48:17 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:42:08 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:34:27 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 30311, None)
+2026-06-07 16:25:17 INFO org.apache.spark.scheduler.DAGScheduler: Job7600606 5 finished: count at JobRunner.scala:34
+2026-06-07 16:55:46 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job7600606
+
+2026-06-07 16:36:33 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ShuffleMapStage 13
+2026-06-07 16:03:57 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 73.0 in stage 13.0 (TID775, container_20260607_0007_01_000014, executor 8, partition 73, NODE_LOCAL)
+2026-06-07 16:31:27 WARN org.apache.spark.executor.Executor: Task 73.0 in stage 13.0 is taking longer than expected; heartbeat still pending.
+2026-06-07 16:26:01 ERROR org.apache.spark.scheduler.TaskSetManager: Lost task 73.0 in stage 13.0 (TID775) on executor 8: Task timed out after 120000 ms
+
+Traceback (most recent call last):
+  File "/opt/jobs/timeout_job20.py", line 114, in <module>
+    output = joined_df.write.mode("overwrite").parquet("s3a://synthetic-bucket/output/")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1650, in parquet
+    self._jwrite.parquet(path)
+py4j.protocol.Py4JJavaError: An error occurred while calling o91.parquet.
+
+Caused by: java.util.concurrent.TimeoutException: Futures timed out after [120000 milliseconds]
+    at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.scala:297)
+    at org.apache.spark.executor.Executor.reportHeartBeat(Executor.scala:1211)
+
+2026-06-07 16:18:43 ERROR org.apache.spark.scheduler.DAGScheduler: Job108701 2 failed: write at TimeoutJob.scala:52, took 149.884 s
+2026-06-07 16:37:24 WARN org.apache.spark.scheduler.cluster.YarnSchedulerBackend: Executor 8 removed after task timeout and missed heartbeat.
+
+2026-06-07 16:06:17 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:00:02 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:01:29 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 30931, None)
+2026-06-07 16:32:21 INFO org.apache.spark.scheduler.DAGScheduler: Job881062 2 finished: count at JobRunner.scala:51
+2026-06-07 16:08:48 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job881062
+
+2026-06-07 16:17:31 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:16:13 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:13:57 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 35706, None)
+2026-06-07 16:19:18 INFO org.apache.spark.scheduler.DAGScheduler: Job7707055 4 finished: count at JobRunner.scala:98
+2026-06-07 16:17:06 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job7707055
+
+2026-06-07 16:58:25 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:16:13 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:17:48 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38378, None)
+2026-06-07 16:39:37 INFO org.apache.spark.scheduler.DAGScheduler: Job1941018 4 finished: count at JobRunner.scala:87
+2026-06-07 16:03:52 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job1941018
+
+2026-06-07 16:56:32 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:20:59 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:41:46 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38723, None)
+2026-06-07 16:40:56 INFO org.apache.spark.scheduler.DAGScheduler: Job73128849 6 finished: count at JobRunner.scala:81
+2026-06-07 16:43:51 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job73128849
+
+2026-06-07 16:36:59 INFO org.apache.spark.internal.Logging: Starting Spark session for job schema_validation_27
+2026-06-07 16:18:42 INFO org.apache.spark.internal.Logging: Reading input files from s3a://prod-bucket/landing/orders/
+2026-06-07 16:14:01 INFO org.apache.spark.sql.execution.datasources.InMemoryFileIndex: Selected 12 partitions from path: s3a://prod-bucket/landing/orders/
+
+2026-06-07 16:41:24 ERROR org.apache.spark.sql.execution.QueryExecution: AnalysisException: [SCHEMA_MISMATCH] The schema of the DataFrame does not match the target table schema.
+
+Traceback (most recent call last):
+  File "/opt/jobs/schema_loader3.py", line 100, in <module>
+    df.write.mode("append").saveAsTable("prod.events")
+  File "/opt/spark/python/pyspark/sql/readwriter.py", line 1570, in saveAsTable
+    self._jwrite.saveAsTable(tableName)
+pyspark.sql.utils.AnalysisException: [SCHEMA_MISMATCH] Failed to merge fields:
+    source column: total_amount (decimal(18,2))
+    target column: total_amount (string)
+
+Caused by: org.apache.spark.sql.AnalysisException: Cannot write incompatible data to table `prod`.`events`.
+    at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:120)
+    at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(DataWritingCommandExec.scala:73)
+    at org.apache.spark.sql.DataFrameWriter.saveAsTable(DataFrameWriter.scala:601)
+
+2026-06-07 16:18:09 WARN org.apache.spark.scheduler.DAGScheduler: Job aborted due to stage failure: write operation rejected by schema validation.
+
+2026-06-07 16:43:11 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:05:11 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:52:18 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 36783, None)
+2026-06-07 16:08:28 INFO org.apache.spark.scheduler.DAGScheduler: Job3541 8 finished: count at JobRunner.scala:56
+2026-06-07 16:47:59 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job3541
+
+2026-06-07 16:21:14 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:39:54 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:58:52 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 32008, None)
+2026-06-07 16:19:55 INFO org.apache.spark.scheduler.DAGScheduler: Job92369 7 finished: count at JobRunner.scala:48
+2026-06-07 16:06:24 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job92369
+
+2026-06-07 16:44:33 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:19:34 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:00:22 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 38519, None)
+2026-06-07 16:01:43 INFO org.apache.spark.scheduler.DAGScheduler: Job1225 1 finished: count at JobRunner.scala:37
+2026-06-07 16:01:42 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job1225
+
+2026-06-07 16:41:24 INFO org.apache.spark.sql.execution.datasources.FileScanRDD: Scanning s3a://logs-bucket/protected/
+2026-06-07 16:28:05 WARN org.apache.hadoop.security.UserGroupInformation: Authentication token not found for user: unknown_user
+2026-06-07 16:14:22 ERROR org.apache.spark.sql.AnalysisException: Access denied while reading input path.
+
+Caused by: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied
+    at org.apache.hadoop.fs.s3a.S3AFileSystem.open(S3AFileSystem.java:806)
+    at org.apache.spark.sql.execution.datasources.HadoopFileLinesReader.read(HadoopFileLinesReader.scala:63)
+
+2026-06-07 16:42:08 ERROR org.apache.spark.sql.execution.QueryExecution: Job aborted due to permission error.
+
+2026-06-07 16:28:15 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:05:05 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:50:15 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.12.8.34, 32686, None)
+2026-06-07 16:12:15 INFO org.apache.spark.scheduler.DAGScheduler: Job2187063 4 finished: count at JobRunner.scala:83
+2026-06-07 16:02:32 INFO org.apache.spark.storage.BlockManager: BlockManager shut down cleanly for Job2187063
+
+2026-06-07 16:44:59 INFO org.apache.spark.internal.Logging: Running Spark version 3.5.0
+2026-06-07 16:31:57 INFO org.apache.hadoop.yarn.client.RMProxy: Connecting to ResourceManager at rm.cluster.local/10.12.8.34:8032
+2026-06-07 16:07:32 INFO org.apache.spark.storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-10-12-6-33, 30392, None)
+2026-06-07 16:42:57 INFO org.apache.spark.scheduler.DAGScheduler: Submitting ResultStage 11
+2026-06-07 16:39:46 INFO org.apache.spark.scheduler.TaskSetManager: Starting task 21.0 in stage 11.0 (TID46345, container_3016, executor 9, partition 21, PROCESS_LOCAL)
+2026-06-07 16:11:53 INFO org.apache.spark.scheduler.TaskSetManager: Finished task 21.0 in stage 11.0 (TID46345) in 85101 ms
+2026-06-07 16:39:02 INFO org.apache.spark.sql.execution.exchange.BroadcastExchangeExec: HashedRelation up to 65000000 bytes total, starting serialization...
+2026-06-07 16:41:39 ERROR org.apache.spark.scheduler.DAGScheduler: Application failed due to broadcast join driver OOM.
+
+java.lang.OutOfMemoryError: Broadcast exchange exceeded memory threshold.
+As a workaround, you can set spark.sql.autoBroadcastJoinThreshold to -1 or increase spark.driver.memory.
+    at org.apache.spark.sql.execution.exchange.BroadcastExchangeExec.relationFuture(BroadcastExchangeExec.scala:118)
+    at org.apache.spark.util.ThreadUtils.newForkJoinPool(ThreadUtils.scala:241)
+
+2026-06-07 16:37:14 ERROR org.apache.spark.executor.Executor: Task 51.0 in stage 1.0 failed: GC overhead limit exceeded
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.util.Arrays.copyOf(Arrays.java:3286)
+    at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:279)
+
+2026-06-07 16:05:39 ERROR org.apache.spark.executor.Executor: Task 15.0 in stage 1.0 failed: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+    at org.apache.spark.util.collection.ExternalAppendOnlyMap.insert(ExternalAppendOnlyMap.scala:122)
+    at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:174)
+
+2026-06-07 16:14:58 ERROR org.apache.spark.scheduler.DAGScheduler: Application application_2683110 failed due to unrecoverable executor loss.
