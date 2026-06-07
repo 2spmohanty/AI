@@ -1,5 +1,7 @@
 
-# Automated EMR/Spark Log Triage Agent: Technical Architecture Document## Project Objective
+# Automated EMR/Spark Log Triage Agent: Technical Architecture Document
+
+## Project Objective
 
 The ABC engineering ecosystem executes high-throughput distributed workflows generating over 10,000 internal Apache Spark job failures weekly across production Amazon EMR clusters. Manual L1 triage currently consumes approximately 2 engineering hours per team member daily. This process relies on repetitive tasks: parsing multi-line Java/Scala stack traces, matching signatures to legacy runbooks, and routing escalations.
 This project implements an Automated Log Triage Agent designed to ingest raw Spark/YARN container failure logs and output an instantly actionable, schema-enforced diagnostic payload.
