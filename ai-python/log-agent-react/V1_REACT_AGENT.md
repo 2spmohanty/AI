@@ -77,7 +77,7 @@ sequenceDiagram
     Note over V1, OAI: Phase 2 — ReAct Loop (up to max_iterations)
     V1->>OAI: system_prompt + error_signature
     
-    rect rgb(30, 40, 55)
+    rect rgb(200, 220, 240)
         loop Thought → Action → [TOOL_RESULT]
             OAI-->>V1: Thought + Action string
             
