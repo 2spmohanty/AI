@@ -85,10 +85,16 @@ This project evaluates two structural variations of the agent loop:
 | 4 | Lost Executor | RPC disassociation |
 | 5 | Task Timeout | TaskKilled after 120000ms |
 
+
+
+
 - Not captured in Vector DB, Lookups, Or Error Maps, To test against hallucination
-- 
+
+
 | # | Type | Root Cause Signal |
+|---|------|-------------------|
 | 1 | Disk Space | IOException: No space left on device  |
+
 ---
 
 
