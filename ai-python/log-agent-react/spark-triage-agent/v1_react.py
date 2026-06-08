@@ -16,7 +16,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def extract_error_signature(log_text: str) -> dict:
     """Tool: Uses regex to isolate core exception profiles from raw log lines."""
-    pattern = re.compile(r'([a-zA-Z0-9_.]+Exception|Error:.*?)(?=\s|\||$)')
+    #pattern = re.compile(r'([a-zA-Z0-9_.]+Exception|Error:.*?)(?=\s|\||$)') # This one doesnot match the entire error line
+    pattern = re.compile(r'([a-zA-Z0-9_.]+(?:Exception|Error)[^\n]*)')
     matches = pattern.findall(log_text)
     sig = matches[-1] if matches else log_text.split('|')[0]
     return {"error_signature": sig.strip()}
@@ -72,12 +73,19 @@ INFRA_DIAGNOSTIC_SCHEMA = {
     "schema": {
         "type": "object",
         "properties": {
-            "error_type": {"type": "string", "description": "The exact exception class or error message signature found."},
-            "root_cause": {"type": "string", "description": "Detailed explanation of what triggered the primary cascading failure."},
-            "recommendation": {"type": "string", "description": "Actionable EMR or Spark infrastructure adjustment instructions."},
-            "confidence": {"type": "number", "description": "Agent confidence score between 0.0 and 1.0."}
+            "error_type": {"type": "string",
+                           "description": "The exact exception class or error message signature found."},
+            "root_cause": {"type": "string",
+                           "description": "Detailed explanation of what triggered the primary cascading failure."},
+            "recommendation": {"type": "string",
+                               "description": "Actionable EMR or Spark infrastructure adjustment instructions."},
+            "confidence": {"type": "number", "description": "Agent confidence score between 0.0 and 1.0."},
+            "escalate_to_human": {
+                "type": "boolean",
+                "description": "True if error category is unknown or confidence is below 0.5"
+            }
         },
-        "required": ["error_type", "root_cause", "recommendation", "confidence"],
+        "required": ["error_type", "root_cause", "recommendation", "confidence","escalate_to_human"],
         "additionalProperties": False
     }
 }
@@ -119,18 +127,39 @@ Output Rules:
 You must strictly think step-by-step. Use this exact text formatting pattern for your iterations:
 Thought: <your logical reasoning here>
 Action: <tool_name>[<argument_value>]
+
+The tool result will be injected as [TOOL_RESULT]. You MUST treat it as ground truth.
+Do NOT generate, infer, or hallucinate your own Observation. 
+If any [TOOL_RESULT] contained "unknown_exception_set", you MUST set confidence below 0.5 and escalate_to_human to true.
+Do NOT attempt to resolve unknown errors with confident recommendations.
+
+Once you have gathered sufficient observations and are ready to provide your absolute conclusion, output the string: "STOP_AND_COMPILE"
+"""
+
+previous_halucinative_output_rules = """
+Output Rules:
+You must strictly think step-by-step. Use this exact text formatting pattern for your iterations:
+Thought: <your logical reasoning here>
+Action: <tool_name>[<argument_value>]
 Observation: <this space will be populated with the tool output injection>
 
 Once you have gathered sufficient observations and are ready to provide your absolute conclusion, output the string: "STOP_AND_COMPILE"
 """
 
+
 # --- MANUAL react agent
 
 def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
     """Executes a manual text-parsing string loop driving the ReAct pattern, finalized with a Structured Output schema."""
+
+    # Pre-processing — deterministic, outside the loop
+    signature_result = extract_error_signature(raw_log)
+    error_signature = signature_result["error_signature"]
+
+    # Agent only sees the signature, not the raw log
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"Analyze this EMR/Spark error log chunk and determine the root cause:\n{raw_log}"}
+        {"role": "user", "content": f"Analyze this error signature extracted from an EMR/Spark log:\n{error_signature}"}
     ]
 
     print("Launching v1 Manual ReAct Loop...")
@@ -173,9 +202,7 @@ def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
         # Execute the selected tool
         observation_dict = {}
         try:
-            if tool_name == "extract_error_signature":
-                observation_dict = extract_error_signature(tool_arg)
-            elif tool_name == "lookup_known_error":
+            if tool_name == "lookup_known_error":
                 observation_dict = lookup_known_error(tool_arg)
                 category = observation_dict.get("category", "unknown_exception_set")
                 observation_dict["suggested_recommendation"] = get_infrastructure_fix(category)
@@ -190,7 +217,12 @@ def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
 
         observation_json = json.dumps(observation_dict)
         print(f"Observation Injection: {observation_json}")
-        messages.append({"role": "user", "content": f"Observation: {observation_json}"})
+        ## messages.append({"role": "user", "content": f"Observation: {observation_json}"})
+        ## The above line makes the Agent to generate its own observation in case of unknown error.
+        messages.append({
+            "role": "user",
+            "content": f"[TOOL_RESULT] {tool_name} returned: {observation_json}"
+        })
 
     # Final safety compilation if loop breaks early
     fallback_response = client.chat.completions.create(
@@ -200,6 +232,7 @@ def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
         temperature=0.0
     )
     return json.loads(fallback_response.choices[0].message.content)
+
 
 # --- Evaluation Judge Framework ---
 
@@ -214,6 +247,7 @@ Given this failure log and an agent's diagnosis, score the diagnosis 1-5.
 Log: {log}
 Diagnosis: {diagnosis}
 """
+
 
 def evaluate_agent_output(log_sample: str, agent_diagnosis: dict) -> dict:
     """Evaluates the structural diagnosis quality via OpenAI json_schema Structured Output validation."""

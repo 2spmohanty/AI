@@ -34,12 +34,14 @@ if __name__ == "__main__":
     access_log_file = "../test-data/application_1717820001123_0001.log"
     executor_log_file="../test-data/application_1717820001124_0001.log"
     schema_log_file = "../test-data/application_1717920001124_0001.log"
+    ############ The Agent has not ben trained on DIsk Space issue, The below log file will find how our agent will reason.
+    disk_issue_log_file = "../test-data/application_1817920001125_0001.log" # The agent has not been trained on this.
 
 
     current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
 
     log_data : str = None
-    with open(schema_log_file, 'r', encoding='utf-8') as f:
+    with open(disk_issue_log_file, 'r', encoding='utf-8') as f:
         log_data = f.read()
 
     execute_diagnostic_pipeline(f"REACT-ANALYSIS-{current_time}", log_data)

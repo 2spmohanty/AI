@@ -29,6 +29,7 @@ def lookup_known_error(error_signature: str) -> dict:
 
     return {"category": "unknown_exception_set", "known_match": False, "matched_keyword": None}
 
+
 RECOMMENDATION_INDEX = {
     'access_exception_set': (
         "Verify IAM Roles, instance profiles, and S3 Bucket policies. "
@@ -51,9 +52,12 @@ RECOMMENDATION_INDEX = {
         "Consider configuring a percentage of on-demand core nodes to preserve framework coordination stability."
     ),
     'unknown_exception_set': (
-        "Examine secondary container stderr/stdout tracking spaces. Re-run with spark.master log-level set to DEBUG."
+        "Unable to match against known error patterns. "
+        "Escalate to L2 on-call engineer with full stderr/stdout logs. "
+        "Re-run job with spark.master log-level DEBUG to capture additional context."
     )
 }
+
 
 def get_infrastructure_fix(category: str) -> str:
     """Returns an actionable recommendation string based on the categorized error."""
