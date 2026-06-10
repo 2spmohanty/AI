@@ -1,0 +1,179 @@
+2026-06-08 21:05:01 INFO  SparkContext: Running Spark version 3.5.1-amzn-0
+2026-06-08 21:05:02 INFO  SparkContext: Submitted application: customer-profile-sync
+2026-06-08 21:05:03 INFO  SecurityManager: Authentication disabled
+2026-06-08 21:05:04 INFO  YarnSchedulerBackend: Registered ApplicationMaster
+2026-06-08 21:05:05 INFO  BlockManagerMaster: Registered BlockManager
+2026-06-08 21:05:07 INFO  ExecutorAllocationManager: Requesting 12 executors
+2026-06-08 21:05:10 INFO  Executor: Starting executor ID 1
+2026-06-08 21:05:10 INFO  Executor: Starting executor ID 2
+2026-06-08 21:05:11 INFO  Executor: Starting executor ID 3
+
+2026-06-08 21:05:18 INFO  DynamoDBConnector:
+Initializing DynamoDB connection
+
+2026-06-08 21:05:19 INFO  DynamoDBConnector:
+Using region ap-southeast-2
+
+2026-06-08 21:05:20 INFO  DynamoDBConnector:
+Target table: customer_profile_prod
+
+2026-06-08 21:05:21 INFO  AWSClient:
+Using IAM role arn:aws:sts::123456789012:assumed-role/EMR_EC2_DefaultRole/i-0ab12cd34ef56gh78
+
+2026-06-08 21:05:22 INFO  DAGScheduler:
+Submitting ResultStage 2
+
+2026-06-08 21:05:23 INFO  TaskSchedulerImpl:
+Adding task set 2.0 with 240 tasks
+
+2026-06-08 21:05:24 INFO  Executor:
+Running task 18.0 in stage 2.0
+
+2026-06-08 21:05:25 INFO  Executor:
+Running task 19.0 in stage 2.0
+
+2026-06-08 21:05:26 INFO  Executor:
+Running task 20.0 in stage 2.0
+
+2026-06-08 21:05:27 INFO  DynamoDBWriteManager:
+Writing batch of 25 items to DynamoDB
+
+2026-06-08 21:05:28 INFO  DynamoDBWriteManager:
+Writing batch of 25 items to DynamoDB
+
+2026-06-08 21:05:29 WARN  DynamoDBWriteManager:
+Retrying failed batch write request
+
+2026-06-08 21:05:30 WARN  DynamoDBWriteManager:
+Retry attempt 1 for batch request
+
+2026-06-08 21:05:31 ERROR DynamoDbClient:
+Failed to execute BatchWriteItem request
+
+software.amazon.awssdk.services.dynamodb.model.DynamoDbException:
+User: arn:aws:sts::123456789012:assumed-role/EMR_EC2_DefaultRole/i-0ab12cd34ef56gh78
+is not authorized to perform:
+dynamodb:BatchWriteItem
+on resource:
+arn:aws:dynamodb:ap-southeast-2:123456789012:table/customer_profile_prod
+because no identity-based policy allows the dynamodb:BatchWriteItem action
+(Service: DynamoDb, Status Code: 400, Request ID: GHTR91ABCD82KLMNOP)
+
+2026-06-08 21:05:31 ERROR DynamoDBWriteManager:
+Batch write failed
+
+com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException:
+Access denied
+
+2026-06-08 21:05:32 ERROR Executor:
+Exception in task 19.0 in stage 2.0 (TID 122)
+
+org.apache.spark.SparkException:
+Task failed while writing rows to DynamoDB
+
+Caused by:
+software.amazon.awssdk.services.dynamodb.model.DynamoDbException:
+User is not authorized to perform dynamodb:BatchWriteItem
+
+2026-06-08 21:05:33 WARN  TaskSetManager:
+Lost task 19.0 in stage 2.0 (TID 122)
+
+2026-06-08 21:05:34 INFO  TaskSchedulerImpl:
+Retrying failed task
+
+2026-06-08 21:05:35 INFO  Executor:
+Running task 19.1 in stage 2.0
+
+2026-06-08 21:05:36 INFO  DynamoDBWriteManager:
+Attempting retry batch write
+
+2026-06-08 21:05:37 ERROR DynamoDbClient:
+Request failed with AccessDeniedException
+
+software.amazon.awssdk.services.dynamodb.model.AccessDeniedException:
+User:
+arn:aws:sts::123456789012:assumed-role/EMR_EC2_DefaultRole/i-0ab12cd34ef56gh78
+is not authorized to perform:
+dynamodb:BatchWriteItem
+on table customer_profile_prod
+
+2026-06-08 21:05:38 WARN  Executor:
+Task failed again due to DynamoDB access issue
+
+2026-06-08 21:05:39 INFO  DAGScheduler:
+Retrying failed stage
+
+2026-06-08 21:05:40 INFO  TaskSchedulerImpl:
+Adding task set 2.1 with 240 tasks
+
+2026-06-08 21:05:42 INFO  Executor:
+Running task 19.2 in stage 2.1
+
+2026-06-08 21:05:43 ERROR DynamoDBConnector:
+Failed writing records to DynamoDB table
+
+software.amazon.awssdk.services.dynamodb.model.DynamoDbException:
+AccessDeniedException:
+Insufficient permissions to access table customer_profile_prod
+
+2026-06-08 21:05:44 ERROR Executor:
+Exception in task 19.2 in stage 2.1
+
+org.apache.spark.SparkException:
+Task failed during DynamoDB sink operation
+
+Caused by:
+software.amazon.awssdk.services.dynamodb.model.AccessDeniedException:
+Access denied
+
+2026-06-08 21:05:45 WARN  TaskSetManager:
+Lost task 19.2 in stage 2.1
+
+2026-06-08 21:05:46 INFO  DAGScheduler:
+Stage 2 failed due to repeated task failures
+
+2026-06-08 21:05:47 INFO  DAGScheduler:
+Retry count for stage 2 = 3
+
+2026-06-08 21:05:48 INFO  Executor:
+Running task 19.3 in stage 2.2
+
+2026-06-08 21:05:49 ERROR DynamoDbClient:
+HTTP 400 returned from DynamoDB
+
+software.amazon.awssdk.services.dynamodb.model.AccessDeniedException:
+User is not authorized to perform:
+dynamodb:BatchWriteItem
+
+2026-06-08 21:05:50 ERROR TaskSetManager:
+Task 19 in stage 2.2 failed 4 times
+
+2026-06-08 21:05:50 ERROR TaskSetManager:
+Task failed more than max failures
+
+2026-06-08 21:05:51 ERROR DAGScheduler:
+Job aborted due to stage failure
+
+org.apache.spark.SparkException:
+Job aborted due to stage failure:
+Task 19 in stage 2.2 failed 4 times
+
+Most recent failure:
+software.amazon.awssdk.services.dynamodb.model.AccessDeniedException:
+User is not authorized to perform:
+dynamodb:BatchWriteItem
+on resource:
+arn:aws:dynamodb:ap-southeast-2:123456789012:table/customer_profile_prod
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2785)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2720)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1208)
+
+2026-06-08 21:05:52 INFO  SparkContext: Stopping SparkContext
+2026-06-08 21:05:53 INFO  SparkUI: Stopped Spark web UI
+2026-06-08 21:05:54 INFO  BlockManager: BlockManager stopped
+2026-06-08 21:05:55 INFO  MemoryStore: Cleared
+2026-06-08 21:05:56 INFO  SparkContext: Successfully stopped SparkContext
+2026-06-08 21:05:57 ERROR EMRStepRunner: Step failed with exit code 1
+2026-06-08 21:05:57 INFO  EMRStepRunner: Marking step as FAILED

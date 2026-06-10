@@ -5,6 +5,7 @@ from error_maps import lookup_known_error, get_infrastructure_fix
 from vector_ops import query_vector_store
 from dotenv import load_dotenv
 import os
+from tools_manifest import classify_severity, extract_error_signature
 
 load_dotenv()
 # Initialize your preferred primary LLM orchestration instance
@@ -14,55 +15,6 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # --- Agent Tools ---
 
-def extract_error_signature(log_text: str) -> dict:
-    """Tool: Uses regex to isolate core exception profiles from raw log lines."""
-    #pattern = re.compile(r'([a-zA-Z0-9_.]+Exception|Error:.*?)(?=\s|\||$)') # This one doesnot match the entire error line
-    pattern = re.compile(r'([a-zA-Z0-9_.]+(?:Exception|Error)[^\n]*)')
-    matches = pattern.findall(log_text)
-    sig = matches[-1] if matches else log_text.split('|')[0]
-    return {"error_signature": sig.strip()}
-
-
-def classify_severity(error_type: str, context: str) -> dict:
-    """Tool: Grades risk severity based on error types, targeting OOM as top priority."""
-    ctx_lower = context.lower()
-    err_lower = error_type.lower()
-
-    # Check for Out Of Memory conditions first
-    is_oom = any(kw in err_lower or kw in ctx_lower for kw in ["oom", "out of memory", "heap space", "overhead limit"])
-    if is_oom:
-        if "driver" in ctx_lower:
-            return {
-                "severity": "CRITICAL",
-                "impact": "Driver node crash terminates the entire Spark application context immediately."
-            }
-        return {
-            "severity": "HIGH",
-            "impact": "Executor node memory exhaustion slows down data processing and causes task retries."
-        }
-
-    # Grade alternative operational categories explicitly
-    if any(kw in err_lower for kw in ["access", "denied", "permission", "token"]):
-        return {
-            "severity": "HIGH",
-            "impact": "Security or credential failure prevents job initialization or target resource read/write operations."
-        }
-    elif any(kw in err_lower for kw in ["timeout", "timed out"]):
-        return {
-            "severity": "MEDIUM",
-            "impact": "Network latency or high GC pauses causing communication drops between system coordinators."
-        }
-    elif any(kw in err_lower for kw in ["schema", "incompatible", "merge"]):
-        return {
-            "severity": "MEDIUM",
-            "impact": "Data structural format mismatch forcing processing pipeline execution halts."
-        }
-
-    # Catch-all fallback for generic framework warnings or unknown exceptions
-    return {
-        "severity": "LOW",
-        "impact": "Standard framework anomaly, non-fatal exception footprint, or background worker retry."
-    }
 
 
 # -- Response Schemas
@@ -90,27 +42,6 @@ INFRA_DIAGNOSTIC_SCHEMA = {
     }
 }
 
-# Schema for the Judge/Evaluation Prompt
-JUDGE_SCORE_SCHEMA = {
-    "name": "evaluation_score",
-    "strict": True,
-    "schema": {
-        "type": "object",
-        "properties": {
-            "score": {
-                "type": "integer",
-                "description": "Score from 1 to 5 based on diagnostic precision and recommendation quality."
-            },
-            "reason": {
-                "type": "string",
-                "description": "Detailed architectural rationale explaining the given score."
-            }
-        },
-        "required": ["score", "reason"],
-        "additionalProperties": False
-    }
-}
-
 # --- Manual ReAct Loop System ---
 
 SYSTEM_PROMPT = """
@@ -118,10 +49,9 @@ You are a Spark Infrastructure Debugging Agent operating in a strict manual ReAc
 You must solve the issue by stepping through: Thought -> Action -> Observation.
 
 Available Tools:
-1. extract_error_signature[log_text] -> Simplifies dirty log strings to a core exception.
-2. lookup_known_error[error_signature] -> Checks if the signature matches a known category map.
-3. query_vector_store[query_text] -> Queries historical log database vectors for context.
-4. classify_severity[error_type, context] -> Grades risk severity ONLY for OOM errors.
+1. lookup_known_error[error_signature] -> Checks if the signature matches a known category map.
+2. query_vector_store[query_text] -> Queries historical log database vectors for context.
+3. classify_severity[error_type, context] -> Grades risk severity ONLY for OOM errors.
 
 Output Rules:
 You must strictly think step-by-step. Use this exact text formatting pattern for your iterations:
@@ -152,14 +82,18 @@ Once you have gathered sufficient observations and are ready to provide your abs
 def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
     """Executes a manual text-parsing string loop driving the ReAct pattern, finalized with a Structured Output schema."""
 
-    # Pre-processing — deterministic, outside the loop
+    # 1. Pre-processing pass — extracts the key signature and window bounds deterministically
     signature_result = extract_error_signature(raw_log)
     error_signature = signature_result["error_signature"]
+    extracted_context = signature_result["context_summary"]
 
     # Agent only sees the signature, not the raw log
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"Analyze this error signature extracted from an EMR/Spark log:\n{error_signature}"}
+        {
+            "role": "user",
+            "content": f"Analyze this error signature extracted from an EMR/Spark log:\n{error_signature}"
+        }
     ]
 
     print("Launching v1 Manual ReAct Loop...")
@@ -209,7 +143,7 @@ def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
             elif tool_name == "query_vector_store":
                 observation_dict = {"historical_matches": query_vector_store(tool_arg)}
             elif tool_name == "classify_severity":
-                observation_dict = classify_severity(tool_arg, raw_log)
+                observation_dict = classify_severity(tool_arg, extracted_context)
             else:
                 observation_dict = {"error": f"Tool '{tool_name}' does not exist."}
         except Exception as e:
@@ -234,27 +168,3 @@ def run_v1_react_agent(raw_log: str, max_iterations: int = 5) -> dict:
     return json.loads(fallback_response.choices[0].message.content)
 
 
-# --- Evaluation Judge Framework ---
-
-JUDGE_PROMPT = """
-You are an expert Spark infrastructure engineer.
-Given this failure log and an agent's diagnosis, score the diagnosis 1-5.
-
-1 = completely wrong
-3 = correct error type, wrong recommendation  
-5 = correct error type, correct recommendation, appropriate confidence
-
-Log: {log}
-Diagnosis: {diagnosis}
-"""
-
-
-def evaluate_agent_output(log_sample: str, agent_diagnosis: dict) -> dict:
-    """Evaluates the structural diagnosis quality via OpenAI json_schema Structured Output validation."""
-    diagnosis_str = json.dumps(agent_diagnosis)
-    response = client.chat.completions.create(
-        model="gpt-5-mini",  # Using a larger model for accurate grading/evaluation
-        messages=[{"role": "user", "content": JUDGE_PROMPT.format(log=log_sample, diagnosis=diagnosis_str)}],
-        response_format={"type": "json_schema", "json_schema": JUDGE_SCORE_SCHEMA}
-    )
-    return json.loads(response.choices[0].message.content)

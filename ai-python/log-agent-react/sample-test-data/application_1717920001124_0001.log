@@ -1,0 +1,167 @@
+2026-06-08 16:04:01 INFO  SparkContext: Running Spark version 3.5.1-amzn-0
+2026-06-08 16:04:02 INFO  SparkContext: Submitted application: customer-master-load
+2026-06-08 16:04:03 INFO  YarnSchedulerBackend: Registered ApplicationMaster
+2026-06-08 16:04:05 INFO  ExecutorAllocationManager: Requesting 15 executors
+2026-06-08 16:04:08 INFO  Executor: Starting executor ID 1
+2026-06-08 16:04:08 INFO  Executor: Starting executor ID 2
+2026-06-08 16:04:09 INFO  Executor: Starting executor ID 3
+
+2026-06-08 16:04:15 INFO  HiveExternalCatalog: Looking up table customer_master
+2026-06-08 16:04:16 INFO  GlueCatalog: Retrieved table metadata
+2026-06-08 16:04:17 INFO  DataSource: Reading parquet files from
+s3://company-prod/customer_master/
+
+2026-06-08 16:04:18 INFO  InMemoryFileIndex: Listing leaf files
+2026-06-08 16:04:20 INFO  ParquetFileFormat: Reading footer
+2026-06-08 16:04:21 INFO  DAGScheduler: Got job 0
+
+2026-06-08 16:04:22 INFO  Executor: Running task 0.0 in stage 0.0
+2026-06-08 16:04:22 INFO  Executor: Running task 1.0 in stage 0.0
+2026-06-08 16:04:23 INFO  Executor: Running task 2.0 in stage 0.0
+
+2026-06-08 16:04:25 WARN  ParquetFileFormat:
+Schema merging is enabled
+
+2026-06-08 16:04:26 INFO  ParquetSchemaConverter:
+Reading schema from file:
+part-00001.snappy.parquet
+
+2026-06-08 16:04:27 INFO  ParquetSchemaConverter:
+Reading schema from file:
+part-00002.snappy.parquet
+
+2026-06-08 16:04:28 INFO  ParquetSchemaConverter:
+Reading schema from file:
+part-00003.snappy.parquet
+
+2026-06-08 16:04:29 WARN  ParquetSchemaConverter:
+Detected schema differences across parquet files
+
+2026-06-08 16:04:30 INFO  Executor: Processing partition 44
+2026-06-08 16:04:31 INFO  Executor: Processing partition 45
+
+2026-06-08 16:04:32 ERROR Executor:
+Exception in task 45.0 in stage 0.0 (TID 45)
+
+org.apache.spark.SparkException:
+Failed merging schema:
+
+root
+ |-- customer_id: string (nullable = true)
+ |-- account_balance: decimal(18,2) (nullable = true)
+
+with
+
+root
+ |-- customer_id: string (nullable = true)
+ |-- account_balance: string (nullable = true)
+
+        at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.mergeSchemas(SchemaMergeUtils.scala:128)
+        at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.mergeSchemasInParallel(SchemaMergeUtils.scala:97)
+
+Caused by:
+org.apache.spark.SparkException:
+Failed to merge incompatible data types
+
+decimal(18,2)
+and
+string
+
+        at org.apache.spark.sql.types.StructType.merge(StructType.scala:612)
+
+2026-06-08 16:04:33 WARN  TaskSetManager:
+Lost task 45.0 in stage 0.0 (TID 45)
+
+2026-06-08 16:04:34 INFO  TaskSchedulerImpl:
+Retrying failed task
+
+2026-06-08 16:04:35 INFO  Executor:
+Running task 45.1 in stage 0.0
+
+2026-06-08 16:04:36 ERROR Executor:
+Exception in task 45.1 in stage 0.0
+
+org.apache.spark.SparkException:
+Parquet column cannot be converted
+
+Column: account_balance
+Expected: decimal(18,2)
+Found: BINARY
+
+        at org.apache.spark.sql.execution.datasources.parquet.ParquetVectorUpdaterFactory.getUpdater
+
+Caused by:
+java.lang.ClassCastException:
+class org.apache.spark.unsafe.types.UTF8String
+cannot be cast to class java.math.BigDecimal
+
+2026-06-08 16:04:37 WARN  TaskSetManager:
+Lost task 45.1 in stage 0.0
+
+2026-06-08 16:04:38 INFO  DAGScheduler:
+Retrying stage
+
+2026-06-08 16:04:40 INFO  Executor:
+Running task 45.2 in stage 0.1
+
+2026-06-08 16:04:41 ERROR FileScanRDD:
+Failed while reading file
+
+s3://company-prod/customer_master/load_date=2026-06-07/part-00003.snappy.parquet
+
+org.apache.spark.sql.execution.datasources.SchemaColumnConvertNotSupportedException:
+column: [account_balance]
+physicalType: BINARY
+logicalType: decimal(18,2)
+
+2026-06-08 16:04:42 WARN  Executor:
+Task failed due to schema conversion error
+
+2026-06-08 16:04:43 WARN  TaskSetManager:
+Lost task 45.2 in stage 0.1
+
+2026-06-08 16:04:44 INFO  DAGScheduler:
+Resubmitting failed stage
+
+2026-06-08 16:04:46 INFO  Executor:
+Running task 45.3 in stage 0.2
+
+2026-06-08 16:04:47 ERROR Executor:
+Exception in task 45.3 in stage 0.2
+
+org.apache.spark.SparkException:
+Encountered error while reading parquet file
+
+Caused by:
+org.apache.spark.sql.execution.datasources.SchemaColumnConvertNotSupportedException:
+Cannot convert Parquet type BINARY to DecimalType(18,2)
+
+2026-06-08 16:04:48 ERROR TaskSetManager:
+Task 45 in stage 0.2 failed 4 times
+
+2026-06-08 16:04:48 ERROR TaskSetManager:
+Task 45 failed more than max failures
+
+2026-06-08 16:04:49 ERROR DAGScheduler:
+Job aborted due to stage failure
+
+org.apache.spark.SparkException:
+Job aborted due to stage failure:
+Task 45 in stage 0.2 failed 4 times,
+most recent failure:
+
+org.apache.spark.sql.execution.datasources.SchemaColumnConvertNotSupportedException:
+Cannot convert Parquet type BINARY to DecimalType(18,2)
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2785)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2720)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1208)
+
+2026-06-08 16:04:50 INFO  SparkContext: Invoking stop()
+2026-06-08 16:04:51 INFO  SparkUI: Stopped Spark web UI
+2026-06-08 16:04:52 INFO  BlockManager: BlockManager stopped
+2026-06-08 16:04:53 INFO  MemoryStore: Cleared
+2026-06-08 16:04:54 INFO  SparkContext: Successfully stopped SparkContext
+2026-06-08 16:04:55 ERROR EMRStepRunner: Step failed with exit code 1
+2026-06-08 16:04:55 INFO  EMRStepRunner: Marking step as FAILED

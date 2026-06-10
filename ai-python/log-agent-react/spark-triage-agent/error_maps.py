@@ -19,7 +19,7 @@ for error_key, error_types in error_index.items():
 
 
 def lookup_known_error(error_signature: str) -> dict:
-    """Matches a signature against known maps; falls back to semantic inference if missing."""
+    """Matches a signature against known maps; falls back to unknown_exception_set if missing."""
     sig_lower = error_signature.lower()
 
     # Check for direct keyword overlap

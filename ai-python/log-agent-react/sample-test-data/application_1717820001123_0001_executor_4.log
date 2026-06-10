@@ -1,0 +1,165 @@
+2026-06-08 09:14:01 INFO  SparkContext: Running Spark version 3.5.1-amzn-0
+2026-06-08 09:14:01 INFO  SparkContext: Submitted application: customer-aggregation-job
+2026-06-08 09:14:02 INFO  SecurityManager: Changing view acls to: hadoop
+2026-06-08 09:14:02 INFO  SecurityManager: Changing modify acls to: hadoop
+2026-06-08 09:14:02 INFO  Utils: Successfully started service 'sparkDriver' on port 38721.
+2026-06-08 09:14:03 INFO  YarnClientSchedulerBackend: Add WebUI Filter.
+2026-06-08 09:14:03 INFO  YarnSchedulerBackend: ApplicationMaster registered.
+2026-06-08 09:14:04 INFO  BlockManagerMaster: Registering BlockManager
+2026-06-08 09:14:05 INFO  ExecutorAllocationManager: Requesting 20 new executors
+2026-06-08 09:14:08 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000001
+2026-06-08 09:14:08 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000002
+2026-06-08 09:14:09 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000003
+2026-06-08 09:14:10 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000004
+2026-06-08 09:14:11 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000005
+2026-06-08 09:14:13 INFO  Executor: Starting executor ID 1
+2026-06-08 09:14:13 INFO  Executor: Starting executor ID 2
+2026-06-08 09:14:14 INFO  Executor: Starting executor ID 3
+2026-06-08 09:14:14 INFO  Executor: Starting executor ID 4
+2026-06-08 09:14:15 INFO  Executor: Starting executor ID 5
+2026-06-08 09:14:20 INFO  FileSourceScanExec: Planning scan with bin packing
+2026-06-08 09:14:21 INFO  DAGScheduler: Got job 0 (count at AggregationJob.scala:45)
+2026-06-08 09:14:21 INFO  DAGScheduler: Final stage: ResultStage 0
+2026-06-08 09:14:22 INFO  TaskSchedulerImpl: Adding task set 0.0 with 120 tasks
+2026-06-08 09:14:24 INFO  Executor: Running task 0.0 in stage 0.0
+2026-06-08 09:14:24 INFO  Executor: Running task 1.0 in stage 0.0
+2026-06-08 09:14:25 INFO  Executor: Running task 2.0 in stage 0.0
+2026-06-08 09:14:26 INFO  Executor: Running task 3.0 in stage 0.0
+2026-06-08 09:14:28 INFO  MemoryStore: Block broadcast_0 stored as values
+2026-06-08 09:14:31 INFO  UnsafeExternalSorter: Thread 45 spilling sort data of 512.0 MiB to disk
+2026-06-08 09:14:35 INFO  UnsafeExternalSorter: Thread 46 spilling sort data of 768.0 MiB to disk
+2026-06-08 09:14:38 INFO  ShuffleBlockFetcherIterator: Getting 120 non-empty blocks
+2026-06-08 09:14:42 INFO  SortShuffleWriter: Writing shuffle data
+2026-06-08 09:14:48 INFO  Executor: Finished task 0.0 in stage 0.0
+2026-06-08 09:14:49 INFO  Executor: Finished task 1.0 in stage 0.0
+2026-06-08 09:14:50 INFO  Executor: Finished task 2.0 in stage 0.0
+2026-06-08 09:14:52 INFO  DAGScheduler: Submitting ShuffleMapStage 1
+2026-06-08 09:14:53 INFO  TaskSchedulerImpl: Adding task set 1.0 with 400 tasks
+2026-06-08 09:14:54 INFO  Executor: Running task 12.0 in stage 1.0
+2026-06-08 09:14:54 INFO  Executor: Running task 13.0 in stage 1.0
+2026-06-08 09:14:55 INFO  Executor: Running task 14.0 in stage 1.0
+2026-06-08 09:14:56 INFO  Executor: Running task 15.0 in stage 1.0
+2026-06-08 09:15:02 WARN  TaskMemoryManager: Failed to allocate a page (16777216 bytes)
+2026-06-08 09:15:03 WARN  TaskMemoryManager: Failed to allocate a page (16777216 bytes)
+2026-06-08 09:15:04 INFO  UnsafeExternalSorter: Spilling data because no more memory available
+2026-06-08 09:15:06 WARN  MemoryConsumer: Failed to allocate memory, retrying
+2026-06-08 09:15:08 INFO  ShuffleExternalSorter: Spilling sort data of 1024.0 MiB to disk
+2026-06-08 09:15:10 INFO  Executor: Finished task 12.0 in stage 1.0
+2026-06-08 09:15:12 INFO  Executor: Finished task 13.0 in stage 1.0
+2026-06-08 09:15:14 INFO  Executor: Running task 89.0 in stage 1.0
+2026-06-08 09:15:15 INFO  Executor: Running task 90.0 in stage 1.0
+2026-06-08 09:15:16 INFO  Executor: Running task 91.0 in stage 1.0
+2026-06-08 09:15:18 WARN  TaskMemoryManager: Failed to allocate a page (33554432 bytes)
+2026-06-08 09:15:19 WARN  MemoryStore: Not enough space to cache rdd_41_89
+2026-06-08 09:15:20 WARN  MemoryStore: Not enough space to cache rdd_41_90
+2026-06-08 09:15:21 INFO  Executor: GC time elapsed = 4234 ms
+2026-06-08 09:15:22 WARN  Executor: Managed memory leak detected
+2026-06-08 09:15:23 INFO  JVMGCTimeMetric: Full GC triggered
+2026-06-08 09:15:24 WARN  GC: Pause Full (Allocation Failure) 6132ms
+2026-06-08 09:15:25 WARN  GC: Pause Full (Allocation Failure) 7128ms
+2026-06-08 09:15:26 WARN  GC: Pause Full (Allocation Failure) 8321ms
+
+2026-06-08 09:15:27 ERROR Executor: Exception in task 89.0 in stage 1.0 (TID 245)
+java.lang.OutOfMemoryError: Java heap space
+        at org.apache.spark.sql.catalyst.expressions.UnsafeRow.copy(UnsafeRow.java:512)
+        at org.apache.spark.sql.execution.aggregate.ObjectAggregationIterator.processInputs(ObjectAggregationIterator.scala:198)
+        at org.apache.spark.sql.execution.aggregate.ObjectAggregationIterator.<init>(ObjectAggregationIterator.scala:95)
+        at org.apache.spark.sql.execution.aggregate.HashAggregateExec.$anonfun$doExecute$1(HashAggregateExec.scala:132)
+        at scala.collection.Iterator.foreach(Iterator.scala:941)
+        at scala.collection.Iterator.foreach$(Iterator.scala:941)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at org.apache.spark.sql.execution.aggregate.HashAggregateExec.doExecute(HashAggregateExec.scala:128)
+        at org.apache.spark.sql.execution.SparkPlan.$anonfun$execute$1(SparkPlan.scala:195)
+        at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsInternal$2(RDD.scala:893)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+
+2026-06-08 09:15:27 ERROR TaskSetManager: Task 89 in stage 1.0 failed 1 times; aborting task
+2026-06-08 09:15:27 WARN  Executor: Lost task 89.0 in stage 1.0 (TID 245)
+java.lang.OutOfMemoryError: Java heap space
+
+2026-06-08 09:15:28 WARN  YarnAllocator: Container container_e12_171782_0001_01_000004 is running beyond physical memory limits
+2026-06-08 09:15:28 WARN  YarnAllocator: Current usage: 12.3 GB of 12 GB physical memory used
+2026-06-08 09:15:28 WARN  YarnAllocator: Killing container
+
+2026-06-08 09:15:29 ERROR YarnScheduler: Lost executor 4 on ip-10-0-21-88.ec2.internal
+Container killed by YARN for exceeding memory limits. 12.3 GB of 12 GB physical memory used.
+
+2026-06-08 09:15:29 WARN  BlockManagerMasterEndpoint: No more replicas available for shuffle_41_89
+2026-06-08 09:15:30 WARN  TaskSchedulerImpl: Lost executor 4
+2026-06-08 09:15:31 INFO  DAGScheduler: Resubmitting failed stages
+2026-06-08 09:15:32 INFO  TaskSchedulerImpl: Adding task set 1.1 with 400 tasks
+2026-06-08 09:15:34 INFO  Executor: Running task 89.1 in stage 1.1
+2026-06-08 09:15:35 INFO  Executor: Running task 90.1 in stage 1.1
+2026-06-08 09:15:36 WARN  GC: Pause Full (Ergonomics) 9412ms
+2026-06-08 09:15:38 WARN  TaskMemoryManager: Failed to allocate a page (67108864 bytes)
+2026-06-08 09:15:39 WARN  TaskMemoryManager: Failed to allocate a page (67108864 bytes)
+2026-06-08 09:15:40 ERROR Executor: Exception in task 90.1 in stage 1.1 (TID 311)
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+        at java.util.HashMap.resize(HashMap.java:704)
+        at java.util.HashMap.putVal(HashMap.java:663)
+        at java.util.HashMap.put(HashMap.java:612)
+        at org.apache.spark.sql.execution.aggregate.ObjectAggregationMap.append(ObjectAggregationMap.scala:97)
+        at org.apache.spark.sql.execution.aggregate.ObjectAggregationIterator.processInputs(ObjectAggregationIterator.scala:212)
+
+2026-06-08 09:15:41 ERROR TaskSetManager: Task 90 in stage 1.1 failed 2 times
+2026-06-08 09:15:42 WARN  Executor: Executor heartbeat timed out after 146000 ms
+2026-06-08 09:15:43 WARN  HeartbeatReceiver: Removing executor 2 with no recent heartbeats
+2026-06-08 09:15:44 ERROR CoarseGrainedSchedulerBackend: Executor lost: 2
+Reason: Executor heartbeat timed out
+
+2026-06-08 09:15:45 WARN  MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 41 to dead executor
+2026-06-08 09:15:46 WARN  ShuffleBlockFetcherIterator: Failed to fetch block shuffle_41_90
+org.apache.spark.shuffle.FetchFailedException:
+Failed to connect to executor 2
+
+2026-06-08 09:15:47 ERROR TaskSetManager: Lost task 120.0 in stage 2.0 (TID 389)
+org.apache.spark.shuffle.FetchFailedException:
+Missing output location for shuffle 41 partition 90
+
+2026-06-08 09:15:48 INFO  DAGScheduler: ShuffleMapStage 1 failed
+2026-06-08 09:15:48 INFO  DAGScheduler: Resubmitting ShuffleMapStage 1
+
+2026-06-08 09:15:49 WARN  YarnAllocator: Requesting replacement executors
+2026-06-08 09:15:50 INFO  YarnAllocator: Launching container container_e12_171782_0001_01_000022
+2026-06-08 09:15:52 INFO  Executor: Starting executor ID 22
+2026-06-08 09:15:54 INFO  Executor: Registered with driver
+
+2026-06-08 09:16:01 WARN  GC: Pause Full (Allocation Failure) 10021ms
+2026-06-08 09:16:02 WARN  GC: Pause Full (Allocation Failure) 11234ms
+2026-06-08 09:16:03 ERROR Executor: Exception in task 121.0 in stage 1.2 (TID 420)
+java.lang.OutOfMemoryError: Java heap space
+
+2026-06-08 09:16:04 ERROR TaskSetManager: Task 121 in stage 1.2 failed 4 times
+2026-06-08 09:16:04 ERROR TaskSetManager: Task 121 failed more than max failures
+
+2026-06-08 09:16:05 ERROR DAGScheduler: Job aborted due to stage failure:
+org.apache.spark.SparkException: Job aborted due to stage failure:
+Task 121 in stage 1.2 failed 4 times, most recent failure:
+java.lang.OutOfMemoryError: Java heap space
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2785)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2721)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2720)
+        at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
+        at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
+        at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2720)
+
+2026-06-08 09:16:06 INFO  SparkContext: Invoking stop() from shutdown hook
+2026-06-08 09:16:06 INFO  SparkUI: Stopped Spark web UI
+2026-06-08 09:16:07 INFO  MapOutputTrackerMasterEndpoint: Stopped
+2026-06-08 09:16:07 INFO  MemoryStore: MemoryStore cleared
+2026-06-08 09:16:07 INFO  BlockManager: BlockManager stopped
+2026-06-08 09:16:08 INFO  BlockManagerMaster: BlockManagerMaster stopped
+2026-06-08 09:16:08 INFO  OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: Stopped
+2026-06-08 09:16:08 INFO  SparkContext: Successfully stopped SparkContext
+2026-06-08 09:16:09 INFO  ShutdownHookManager: Shutdown hook called
+2026-06-08 09:16:09 INFO  ShutdownHookManager: Deleting directory /mnt/tmp/spark-51c92d7d
+2026-06-08 09:16:09 INFO  ShutdownHookManager: Deleting directory /mnt/tmp/spark-a4b1889e
+2026-06-08 09:16:09 ERROR EMRStepRunner: Step failed with exit code 1
+2026-06-08 09:16:09 INFO  EMRStepRunner: Marking step as FAILED

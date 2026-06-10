@@ -1,0 +1,143 @@
+2026-06-08 18:12:01 INFO  SparkContext: Running Spark version 3.5.1-amzn-0
+2026-06-08 18:12:02 INFO  SparkContext: Submitted application: transaction-aggregation-job
+2026-06-08 18:12:03 INFO  YarnSchedulerBackend: Registered ApplicationMaster
+2026-06-08 18:12:05 INFO  ExecutorAllocationManager: Requesting 20 executors
+2026-06-08 18:12:08 INFO  Executor: Starting executor ID 1
+2026-06-08 18:12:08 INFO  Executor: Starting executor ID 2
+2026-06-08 18:12:09 INFO  Executor: Starting executor ID 3
+
+2026-06-08 18:12:15 INFO  DAGScheduler: Submitting ShuffleMapStage 8
+2026-06-08 18:12:16 INFO  TaskSchedulerImpl: Adding task set 8.0 with 900 tasks
+
+2026-06-08 18:12:20 INFO  Executor: Running task 201.0 in stage 8.0
+2026-06-08 18:12:21 INFO  Executor: Running task 202.0 in stage 8.0
+2026-06-08 18:12:22 INFO  Executor: Running task 203.0 in stage 8.0
+
+2026-06-08 18:13:01 INFO  UnsafeExternalSorter:
+Thread 72 spilling sort data of 512 MB to disk
+
+2026-06-08 18:13:12 INFO  UnsafeExternalSorter:
+Thread 72 spilling sort data of 768 MB to disk
+
+2026-06-08 18:13:25 INFO  DiskBlockObjectWriter:
+Writing shuffle file
+/tmp/blockmgr-5f4a7d/17/shuffle_8_201_0.data
+
+2026-06-08 18:13:40 INFO  DiskBlockObjectWriter:
+Writing shuffle file
+/tmp/blockmgr-5f4a7d/17/shuffle_8_202_0.data
+
+2026-06-08 18:13:55 WARN  DiskBlockManager:
+Local directory usage exceeds 90%
+
+2026-06-08 18:14:01 WARN  DiskBlockManager:
+Local directory /mnt/yarn/usercache/hadoop/appcache/application_1717820001123_0001 is 97% full
+
+2026-06-08 18:14:08 INFO  Executor:
+Continuing shuffle spill operations
+
+2026-06-08 18:14:11 ERROR DiskBlockObjectWriter:
+Exception while writing local shuffle file
+
+java.io.IOException: No space left on device
+
+        at java.io.FileOutputStream.writeBytes(Native Method)
+        at java.io.FileOutputStream.write(FileOutputStream.java:349)
+        at org.apache.spark.storage.TimeTrackingOutputStream.write(TimeTrackingOutputStream.java:59)
+        at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+        at java.io.BufferedOutputStream.write(BufferedOutputStream.java:126)
+
+2026-06-08 18:14:12 ERROR SortShuffleWriter:
+Failed to write shuffle partition
+
+java.io.IOException: No space left on device
+
+2026-06-08 18:14:13 ERROR Executor:
+Exception in task 201.0 in stage 8.0 (TID 4501)
+
+org.apache.spark.SparkException:
+Task failed while writing shuffle data
+
+Caused by:
+java.io.IOException: No space left on device
+
+2026-06-08 18:14:14 WARN  TaskSetManager:
+Lost task 201.0 in stage 8.0
+
+2026-06-08 18:14:15 INFO  TaskSchedulerImpl:
+Retrying failed task
+
+2026-06-08 18:14:16 INFO  Executor:
+Running task 201.1 in stage 8.0
+
+2026-06-08 18:14:17 ERROR DiskBlockObjectWriter:
+Could not create file
+
+/tmp/blockmgr-5f4a7d/17/shuffle_8_201_1.data
+
+java.io.IOException: No space left on device
+
+2026-06-08 18:14:18 WARN  Executor:
+Shuffle write failed
+
+2026-06-08 18:14:20 INFO  DAGScheduler:
+Resubmitting failed tasks
+
+2026-06-08 18:14:22 INFO  Executor:
+Running task 201.2 in stage 8.0
+
+2026-06-08 18:14:23 ERROR IndexShuffleBlockResolver:
+Failed to write index file
+
+java.io.IOException: No space left on device
+
+2026-06-08 18:14:24 WARN  TaskSetManager:
+Lost task 201.2 in stage 8.0
+
+2026-06-08 18:14:26 INFO  Executor:
+Running task 201.3 in stage 8.0
+
+2026-06-08 18:14:27 ERROR Executor:
+Exception in task 201.3 in stage 8.0
+
+org.apache.spark.SparkException:
+Failed to persist shuffle output
+
+Caused by:
+java.io.IOException: No space left on device
+
+2026-06-08 18:14:28 ERROR TaskSetManager:
+Task 201 failed more than max failures
+
+2026-06-08 18:14:29 ERROR DAGScheduler:
+ShuffleMapStage 8 failed
+
+2026-06-08 18:14:30 INFO  DAGScheduler:
+Aborting stage due to repeated task failures
+
+2026-06-08 18:14:31 ERROR DAGScheduler:
+Job aborted due to stage failure
+
+org.apache.spark.SparkException:
+Job aborted due to stage failure:
+Task 201 in stage 8.0 failed 4 times
+
+Most recent failure:
+
+org.apache.spark.SparkException:
+Failed to persist shuffle output
+
+Caused by:
+java.io.IOException: No space left on device
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2785)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2720)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1208)
+
+2026-06-08 18:14:32 INFO  SparkContext: Stopping SparkContext
+2026-06-08 18:14:33 INFO  SparkUI: Stopped Spark web UI
+2026-06-08 18:14:34 INFO  BlockManager: BlockManager stopped
+2026-06-08 18:14:35 INFO  SparkContext: Successfully stopped SparkContext
+2026-06-08 18:14:36 ERROR EMRStepRunner: Step failed with exit code 1
+2026-06-08 18:14:36 INFO  EMRStepRunner: Marking step as FAILED

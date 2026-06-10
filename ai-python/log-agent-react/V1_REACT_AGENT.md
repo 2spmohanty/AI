@@ -1,4 +1,4 @@
-# Log Sentry — EMR Spark Log Triage Agent
+# Log Sentry — EMR Spark Log Triage Agent (Manual ReAct)
 
 > **v1: Manual ReAct** | Python · OpenAI · ChromaDB · HuggingFace
 
@@ -15,6 +15,13 @@ AWS provides broad observability — but not at the domain-specific depth that e
 Frameworks like LangChain and the tool_use API abstract away the ReAct loop. Building it manually first forces every design decision into the open — message history management, tool contract design, observation injection, loop termination. You cannot debug what you do not understand. v1 is the foundation that makes v2 defensible.
 
 ---
+
+## Agent Response on Known and Unknown Error
+
+[V1-REACT-RESPONSE](Agent-Responses/V1-REACT-RESPONSE)
+
+---
+
 
 ## What I Built
 
@@ -123,4 +130,11 @@ sequenceDiagram
 
 ---
 
-*v2 (Anthropic tool_use) — in progress*
+V2 Tool Usage React Agent: [v2_react](spark-triage-agent/v2_react.py)
+
+| # | Bug                  | Root Cause | Fix | Lesson |
+|---|----------------------|-----------|-----|--------|
+|1| extract_error        | Was identifying symptoms rather than root cause| March forward to find the first error and then create a slide window between(-50,100)| Error window lies between the 200 lines|
+|2| unknown_exception    | Classifying error as unknown_execption_set made the agent confirm that its a valid error located, so had set the huma_escalation to false. Introducing known_match as False from beigning of loop and setting it true in case of only known category enabled human escalation| Need to capture the ground truth to ground the agentic behaviour on known data|
+|3| system parameter     | Accepts array but Dict was passed| changed to array| System ceepts array|
+|4| Escalation condition |Checking error_type == "unknown_exception_set" never triggered because model correctly sets error_type to actual exception class|Changed condition to check known_match flag instead of error_type|Programmatic enforcement must be grounded in your data, not the model's output|

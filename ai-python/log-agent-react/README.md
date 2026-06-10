@@ -103,8 +103,9 @@ This project evaluates two structural variations of the agent loop:
 ## Ingestion Pipeline
 
 Training Data: [training_data](log_samples/training_data)
+FOr generating Training Data: [GENERATE_TRAINING_DATA.md](log_samples/GENERATE_TRAINING_DATA.md)
 
-*The Disk Issue is semantics and vectors are left uningested to test agent response on un-chattered waters, to scope in the hallucination blast radius* 
+*The Disk & Dynamo Issue  are left uningested to test agent response on un-chattered waters, to trigger Human Escalation route rather than agent hallucinative responses.* 
 
 
 ```mermaid
@@ -150,9 +151,20 @@ The companion technical brief documents the iterative design choices, failure mo
 
 Solution Design: [V1_REACT_AGENT.md](V1_REACT_AGENT.md)
 
-Agent Response: [V1-REACT-RESPONSE](Agent-Responses/V1-REACT-RESPONSE)
+Manual ReAct Agent Response: [V1-REACT-RESPONSE](Agent-Responses/V1-REACT-RESPONSE)
 
-Test Inputs: [test-data](test-data) *The Disk Issue is deliberately left untrained to test agent response on un-chattered waters, to scope in the hallucination blast radius* 
+---
+
+## AGENT FLOW V2 (Anthropic Tool Usage)
+
+v2 replaces prompt-level hacks with protocol-level enforcement using Anthropic's native tool_use API.
+
+*Both the Agentic Flow was tested on the below sample data that contains Disk Issue and Dynamo Access issue as outliers and should trigger Human Escalation as its not captured in Vector DB semantics.
+
+
+---
+
+Test Inputs: [sample-test-data](sample-test-data) *The Disk & Dynamo Issue is deliberately left untrained to test agent response on un-chattered waters, to scope in the hallucination blast radius* 
 
 
 ---

@@ -1,0 +1,129 @@
+2026-06-08 14:18:01 INFO  SparkContext: Running Spark version 3.5.1-amzn-0
+2026-06-08 14:18:02 INFO  YarnSchedulerBackend: Registered ApplicationMaster
+2026-06-08 14:18:03 INFO  ExecutorAllocationManager: Requesting 25 executors
+2026-06-08 14:18:08 INFO  Executor: Starting executor ID 1
+2026-06-08 14:18:08 INFO  Executor: Starting executor ID 2
+2026-06-08 14:18:09 INFO  Executor: Starting executor ID 3
+2026-06-08 14:18:09 INFO  Executor: Starting executor ID 4
+2026-06-08 14:18:10 INFO  Executor: Starting executor ID 5
+
+2026-06-08 14:21:31 INFO  DAGScheduler: Submitting ShuffleMapStage 17
+2026-06-08 14:21:32 INFO  TaskSchedulerImpl: Adding task set 17.0 with 1200 tasks
+2026-06-08 14:21:33 INFO  Executor: Running task 421.0 in stage 17.0
+2026-06-08 14:21:34 INFO  Executor: Running task 422.0 in stage 17.0
+2026-06-08 14:21:35 INFO  Executor: Running task 423.0 in stage 17.0
+
+2026-06-08 14:22:12 WARN  TransportChannelHandler: Connection to /10.0.44.78:7337 has been quiet for 120000 ms
+2026-06-08 14:22:14 WARN  NettyRpcEnv: Ignored failure: java.io.IOException: Connection reset by peer
+2026-06-08 14:22:16 WARN  HeartbeatReceiver: Removing executor 7 with no recent heartbeats: 146203 ms exceeds timeout 120000 ms
+
+2026-06-08 14:22:16 ERROR YarnScheduler: Lost executor 7 on ip-10-0-44-78.ec2.internal
+Executor heartbeat timed out after 146203 ms
+
+2026-06-08 14:22:16 WARN  TaskSchedulerImpl: Lost executor 7 on ip-10-0-44-78.ec2.internal
+2026-06-08 14:22:16 INFO  DAGScheduler: Executor lost: 7 (epoch 12)
+
+2026-06-08 14:22:17 WARN  BlockManagerMasterEndpoint: No more replicas available for rdd_143_421
+2026-06-08 14:22:17 WARN  BlockManagerMasterEndpoint: No more replicas available for rdd_143_422
+2026-06-08 14:22:17 WARN  BlockManagerMasterEndpoint: No more replicas available for rdd_143_423
+
+2026-06-08 14:22:18 INFO  YarnAllocator: Requesting replacement executor
+2026-06-08 14:22:19 INFO  TaskSetManager: Resubmitting 36 lost tasks from executor 7
+
+2026-06-08 14:22:22 INFO  Executor: Starting executor ID 26
+2026-06-08 14:22:23 INFO  Executor: Registered with driver
+
+2026-06-08 14:22:25 WARN  ShuffleBlockFetcherIterator: Error while fetching local blocks
+org.apache.spark.network.client.TransportClientFactory$ClientCreationException:
+Failed to connect to /10.0.44.78:7337
+
+2026-06-08 14:22:26 ERROR ShuffleBlockFetcherIterator:
+Failed to fetch shuffle block shuffle_17_421_0
+
+org.apache.spark.shuffle.FetchFailedException:
+Failed to connect to executor 7
+
+2026-06-08 14:22:27 WARN  TaskSetManager:
+Lost task 912.0 in stage 18.0 (TID 9832)
+
+org.apache.spark.shuffle.FetchFailedException:
+Missing an output location for shuffle 17 partition 421
+
+2026-06-08 14:22:28 WARN  TaskSetManager:
+Lost task 913.0 in stage 18.0 (TID 9833)
+
+org.apache.spark.shuffle.FetchFailedException:
+Missing an output location for shuffle 17 partition 422
+
+2026-06-08 14:22:29 ERROR TaskSetManager:
+Task 914 in stage 18.0 failed due to FetchFailedException
+
+2026-06-08 14:22:30 INFO  DAGScheduler:
+ShuffleMapStage 17 failed due to fetch failures
+
+2026-06-08 14:22:30 INFO  DAGScheduler:
+Resubmitting ShuffleMapStage 17
+
+2026-06-08 14:22:31 WARN  DAGScheduler:
+Shuffle output lost for executor 7
+
+2026-06-08 14:22:32 INFO  TaskSchedulerImpl:
+Adding task set 17.1 with 1200 tasks
+
+2026-06-08 14:22:35 INFO  Executor: Running task 421.1 in stage 17.1
+2026-06-08 14:22:36 INFO  Executor: Running task 422.1 in stage 17.1
+2026-06-08 14:22:37 INFO  Executor: Running task 423.1 in stage 17.1
+
+2026-06-08 14:23:10 WARN  HeartbeatReceiver:
+Removing executor 11 with no recent heartbeats
+
+2026-06-08 14:23:10 ERROR YarnScheduler:
+Lost executor 11 on ip-10-0-45-102.ec2.internal
+
+Executor heartbeat timed out
+
+2026-06-08 14:23:11 WARN  DAGScheduler:
+Shuffle outputs lost for executor 11
+
+2026-06-08 14:23:12 ERROR ShuffleBlockFetcherIterator:
+Fetch failed from executor 11
+
+2026-06-08 14:23:13 WARN  TaskSetManager:
+Lost task 931.0 in stage 18.1
+
+org.apache.spark.shuffle.FetchFailedException
+
+2026-06-08 14:23:14 INFO  DAGScheduler:
+Marking ShuffleMapStage 17 as failed
+
+2026-06-08 14:23:15 WARN  DAGScheduler:
+Stage 17 has failed 3 times
+
+2026-06-08 14:23:16 INFO  DAGScheduler:
+Retrying stage 17
+
+2026-06-08 14:23:40 ERROR TaskSetManager:
+Task 421 in stage 17.3 failed 4 times
+
+2026-06-08 14:23:41 ERROR DAGScheduler:
+Job aborted due to stage failure
+
+org.apache.spark.SparkException:
+Job aborted due to stage failure:
+ShuffleMapStage 17 failed the maximum allowable number of times: 4
+
+Most recent failure reason:
+org.apache.spark.shuffle.FetchFailedException:
+Failed to fetch shuffle data from lost executor
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2785)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2720)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1208)
+
+2026-06-08 14:23:42 INFO  SparkContext: Stopping SparkContext
+2026-06-08 14:23:43 INFO  SparkUI: Stopped Spark web UI
+2026-06-08 14:23:44 INFO  BlockManager: BlockManager stopped
+2026-06-08 14:23:45 INFO  SparkContext: Successfully stopped SparkContext
+2026-06-08 14:23:46 ERROR EMRStepRunner: Step failed with exit code 1
+2026-06-08 14:23:46 INFO  EMRStepRunner: Marking step as FAILED
