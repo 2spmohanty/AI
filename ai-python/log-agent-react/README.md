@@ -128,12 +128,16 @@ Anthropic ReAct Agent : [V2_REACT_AGENT.md](V2_REACT_AGENT.md)
 
 ## INGESTION
 
-## Ingestion Pipeline
-
 Training Data: [training_data](log_samples/training_data)
-FOr generating Training Data: [GENERATE_TRAINING_DATA.md](log_samples/GENERATE_TRAINING_DATA.md)
+
+For generating Training Data: [GENERATE_TRAINING_DATA.md](log_samples/GENERATE_TRAINING_DATA.md)
 
 *The Disk & Dynamo Issue  are left uningested to test agent response on un-chattered waters, to trigger Human Escalation route rather than agent hallucinative responses.* 
+
+
+---
+
+## Ingestion Pipeline
 
 
 ```mermaid
