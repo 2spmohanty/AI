@@ -9,14 +9,42 @@ This project implements an Automated Log Triage Agent designed to ingest raw Spa
 ![logsentry.png](../images/logsentry.png)
 
                         
-------------------------------
+---
+
 ## Technical KPIs & Implementation Targets
 This project evaluates two structural variations of the agent loop:
 
 * v1: Manual ReAct (Deterministic Iteration): Built using an explicit string-parsing text loop driven by gpt-5-mini. It acts as a transparent, auditable state machine where tool selection is extracted via regular expressions.
 * v2: Native Tool Use (Production Grade): Leverages Anthropic’s structured tool_use schema arrays to enforce strict JSON compliance at the model compilation boundary.
 
-------------------------------
+---
+
+
+## AGENT FLOW V1 (Manual Parsing and Tool calling)
+
+To establish a solid technical foundation, the initial development iteration bypasses high-level orchestration abstractions (such as LangChain Agent runtimes or Anthropic's native tool_use APIs) in favour of a bare-metal, loop-driven state machine.Building the core execution engine manually surfaces the critical low-level mechanics that commercial frameworks abstract away: message-history pruning, state preservation, raw text parsing, deterministic tool contract alignment, and string-boundary loop termination. Developing this transparent, auditable base layer guarantees that the subsequent shift to an production-grade agent is defensible, measurable, and structurally grounded.
+
+The companion technical brief documents the iterative design choices, failure modes, and optimization steps encountered while testing the manual runtime:
+
+Solution Design: [V1_REACT_AGENT.md](V1_REACT_AGENT.md)
+
+Manual ReAct Agent : [V1-REACT-RESPONSE](Agent-Responses/V1-REACT-RESPONSE)
+
+---
+
+## AGENT FLOW V2 (Anthropic Tool Usage)
+
+v2 replaces prompt-level hacks with protocol-level enforcement using Anthropic's native tool_use API.
+
+*Both the Agentic Flow was tested on the below sample data that contains Disk Issue and Dynamo Access issue as outliers and should trigger Human Escalation as its not captured in Vector DB semantics.
+
+Anthropic ReAct Agent : [V2_REACT_AGENT.md](V2_REACT_AGENT.md)
+
+
+
+---
+
+
 ## System Constraints & Engineering Guards
 
 ### 1. Latency Profile
@@ -143,26 +171,6 @@ sequenceDiagram
 ---
 
 
-## AGENT FLOW V1 (Manual Parsing and Tool calling)
-
-To establish a solid technical foundation, the initial development iteration bypasses high-level orchestration abstractions (such as LangChain Agent runtimes or Anthropic's native tool_use APIs) in favour of a bare-metal, loop-driven state machine.Building the core execution engine manually surfaces the critical low-level mechanics that commercial frameworks abstract away: message-history pruning, state preservation, raw text parsing, deterministic tool contract alignment, and string-boundary loop termination. Developing this transparent, auditable base layer guarantees that the subsequent shift to an production-grade agent is defensible, measurable, and structurally grounded.
-
-The companion technical brief documents the iterative design choices, failure modes, and optimization steps encountered while testing the manual runtime:
-
-Solution Design: [V1_REACT_AGENT.md](V1_REACT_AGENT.md)
-
-Manual ReAct Agent Response: [V1-REACT-RESPONSE](Agent-Responses/V1-REACT-RESPONSE)
-
----
-
-## AGENT FLOW V2 (Anthropic Tool Usage)
-
-v2 replaces prompt-level hacks with protocol-level enforcement using Anthropic's native tool_use API.
-
-*Both the Agentic Flow was tested on the below sample data that contains Disk Issue and Dynamo Access issue as outliers and should trigger Human Escalation as its not captured in Vector DB semantics.
-
-
----
 
 Test Inputs: [sample-test-data](sample-test-data) *The Disk & Dynamo Issue is deliberately left untrained to test agent response on un-chattered waters, to scope in the hallucination blast radius* 
 
