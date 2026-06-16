@@ -79,6 +79,66 @@ ANTHROPIC_TOOLS_MANIFEST = [
 
 ]
 
+ANTHROPIC_TOOLS_WITHOUT_VECTOR_MANIFEST = [
+    {
+        "name": "lookup_known_error",
+        "description": "Checks if an isolated error signature string matches a known categorical infrastructure group mapping. Falls back to returning 'unknown_exception_set' if no match is found.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "error_signature": {
+                    "type": "string",
+                    "description": "The exact isolated exception class pattern or error signature string (e.g., 'java.lang.OutOfMemoryError')."
+                }
+            },
+            "required": ["error_signature"],
+            "additionalProperties": False
+        }
+    },
+    {
+        "name": "classify_severity",
+        "description": "Grades infrastructure failure severity risk profiles, prioritizing Out of Memory (OOM) tracking locations while mapping secondary failures explicitly.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "error_type": {
+                    "type": "string",
+                    "description": "The classified exception class name or extracted categorical signature."
+                },
+                "context": {
+                    "type": "string",
+                    "description": "The immediate sliding window context (50 lines before, 100 lines after) to evaluate system component positioning (e.g., driver vs executor)."
+                }
+            },
+            "required": ["error_type", "context"],
+            "additionalProperties": False
+        }
+    },
+    {
+        "name": "compile_final_diagnosis",
+        "description": "Compiles the final triage findings into a strict structured schema for downstream consumption.",
+        "input_schema": {
+        "type": "object",
+        "properties": {
+            "error_type": {"type": "string",
+                           "description": "The exact exception class or error message signature found."},
+            "root_cause": {"type": "string",
+                           "description": "Detailed explanation of what triggered the primary cascading failure."},
+            "recommendation": {"type": "string",
+                               "description": "Actionable EMR or Spark infrastructure adjustment instructions."},
+            "confidence": {"type": "number", "description": "Agent confidence score between 0.0 and 1.0."},
+            "escalate_to_human": {
+                "type": "boolean",
+                "description": "True if error category is unknown or confidence is below 0.5"
+            }
+        },
+        "required": ["error_type", "root_cause", "recommendation", "confidence","escalate_to_human"],
+        "additionalProperties": False
+    }
+    }
+
+]
+
 def extract_error_signature(log_text: str) -> dict:
     """
     Finds the primary error signature using an optimized regex pattern,

@@ -1,6 +1,7 @@
 import json
 from v1_react import run_v1_react_agent
 from v2_react import run_v2_react_agent
+from v3_react_on_mcp import run_v3_react_agent
 from agent_result_judge import evaluate_agent_output
 from datetime import datetime
 
@@ -16,9 +17,12 @@ def execute_diagnostic_pipeline(sample_name: str, log_payload: str, agent_type="
             print("=" * 80)
             print("Running diagnostic pipeline with Manual V1 ReAct Agentic Pipeline")
             diagnosis = run_v1_react_agent(log_payload, max_iterations=5)
-        else:
+        elif agent_type == "v2":
             print("Running diagnostic pipeline with V2 Anthropic Too Usage ReAct Agentic Pipeline")
             diagnosis = run_v2_react_agent(log_payload)
+        else:
+            print("Running diagnostic pipeline with V3 Anthropic Too Usage ReAct Agentic Pipeline & MCP Server")
+            diagnosis = run_v3_react_agent(log_payload)
 
         print(f"\n [AGENT OUTCOME] [PIPELINE {agent_type}] -  Generated Structured Diagnosis:")
         print(json.dumps(diagnosis, indent=2))
@@ -50,10 +54,11 @@ if __name__ == "__main__":
     current_time = datetime.now().strftime("%Y%m%d-%H%M%S")
 
     log_data : str = None
-    with open(disk_issue_log_file, 'r', encoding='utf-8') as f:
+    with open(oom_log_file, 'r', encoding='utf-8') as f:
         log_data = f.read()
 
+
     #execute_diagnostic_pipeline(f"REACT-ANALYSIS-{current_time}", log_data) # V1 Manual Agent
-    execute_diagnostic_pipeline(f"REACT-ANALYSIS-{current_time}", log_data, agent_type="v2")
+    execute_diagnostic_pipeline(f"REACT-ANALYSIS-{current_time}", log_data, agent_type="v3")
 
 

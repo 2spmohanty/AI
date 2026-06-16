@@ -179,4 +179,15 @@ sequenceDiagram
 Test Inputs: [sample-test-data](sample-test-data) *The Disk & Dynamo Issue is deliberately left untrained to test agent response on un-chattered waters, to scope in the hallucination blast radius* 
 
 
+
+
+| Log | v1 Judge Score | v2 Judge Score | known_match | escalate |
+|-----|----------------|----------------|-------------|----------|
+| OOM | 4              | 4              | Yes         | False    |
+| S3 Access Denied | 5              | 4              | Yes         | False    |
+| Schema Mismatch | 5              | 5              | Yea         | False    |
+| Lost Executor | 3              | 5              | Yes         | False    |
+| Disk Space (unknown) | 3              | 4              | No          | True     |
+
+
 ---
