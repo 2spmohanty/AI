@@ -117,7 +117,7 @@ def run_lang_chained_v2(raw_log: str, max_turns: int = 5) -> CompileFinalDiagnos
             break
 
     # =====================================================================
-    # FINAL STRUCTURED EXTRACTION (Guarantees Pydantic Object)
+    # FINAL STRUCTURED EXTRACTION
     # =====================================================================
     print("Enforcing strict Pydantic schema formatting via with_structured_output...")
 
@@ -127,7 +127,8 @@ def run_lang_chained_v2(raw_log: str, max_turns: int = 5) -> CompileFinalDiagnos
     # This invocation is guaranteed to return a true instance of CompileFinalDiagnosis (Pydantic)
     final_payload: CompileFinalDiagnosis = structured_llm.invoke([("system", V2_SYSTEM_PROMPT)] + messages)
 
-    # Apply your conditional downstream business safety rules onto the Pydantic instance attributes
+    # Apply the conditional downstream business safety rules onto the Pydantic instance attributes
+    # to initiate human in loop
     if not known_match_found:
         final_payload.confidence = 0.4
         final_payload.escalate_to_human = True
