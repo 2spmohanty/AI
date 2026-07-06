@@ -1,0 +1,26 @@
+# scenarios/tier3_schema_type_change.yaml
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier3_schema_type_change.yaml
+
+scenario_name: tier3_schema_type_change
+description: >
+  Numeric column silently becomes a string (amount: 123.45 -> "123.45" in
+  JSON, or corrupted-suffix in CSV). Expected: DQ_FAILED via schema type
+  comparison — dtype inferred from the file no longer matches the contract.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+
+  - step: 2
+    dataset: account
+    rows: 400
+    fk_source_step: 1
+
+  - step: 3
+    dataset: transaction
+    rows: 300
+    fk_source_step: 2
+    error_type: schema_type_change

@@ -1,0 +1,22 @@
+# scenarios/tier2_orphan_fk.yaml
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier2_orphan_fk.yaml
+
+scenario_name: tier2_orphan_fk
+description: >
+  Referential integrity break — account.customer_id points at IDs that
+  don't exist. Expected: DQ_FAILED via the referential integrity check
+  (not GE — GE has no concept of cross-dataset joins).
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+
+  - step: 2
+    dataset: account
+    rows: 300
+    fk_source_step: 1
+    error_type: orphan_fk
+    error_pct: 10

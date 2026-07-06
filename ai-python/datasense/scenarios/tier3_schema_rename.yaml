@@ -1,0 +1,16 @@
+# scenarios/tier3_schema_rename.yaml
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier3_schema_rename.yaml
+
+scenario_name: tier3_schema_rename
+description: >
+  Unannounced schema drift — a column renamed across the entire file (e.g.
+  customer_id -> customer_identifier). Expected: DQ_FAILED via schema
+  comparison against the Neo4j contract, before GE ever runs.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 200
+    error_type: schema_rename

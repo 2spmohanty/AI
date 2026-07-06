@@ -1,0 +1,26 @@
+# scenarios/positive_baseline_chain.yaml
+#
+# The "everything is healthy" baseline. Run this first, always — it's what
+# establishes clean DQ_PASSED partitions for every other scenario's FK
+# sampling to build on top of.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/positive_baseline_chain.yaml
+
+scenario_name: positive_baseline_chain
+description: Clean customer -> account -> transaction chain, no anomalies.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 500
+
+  - step: 2
+    dataset: account
+    rows: 800
+    fk_source_step: 1
+
+  - step: 3
+    dataset: transaction
+    rows: 1500
+    fk_source_step: 2

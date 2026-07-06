@@ -1,0 +1,30 @@
+# scenarios/tier1_negative_amount.yaml
+#
+# transaction has a FK dependency on account, which depends on customer —
+# so even a single-dataset Tier 1 test here needs the full chain built
+# first. Only the last step is the actual anomaly under test.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier1_negative_amount.yaml
+
+scenario_name: tier1_negative_amount
+description: >
+  Business rule violation — DEPOSIT transactions forced negative. Expected:
+  DQ_FAILED on the 'deposit_amount_positive' rule.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+
+  - step: 2
+    dataset: account
+    rows: 400
+    fk_source_step: 1
+
+  - step: 3
+    dataset: transaction
+    rows: 400
+    fk_source_step: 2
+    error_type: negative_amount
+    error_pct: 15

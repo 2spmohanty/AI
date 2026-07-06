@@ -1,0 +1,40 @@
+# scenarios/tier4_account_volume_cascade.yaml
+#
+# Same cascade mechanism as customer_volume_cascade.yaml, but the root cause
+# originates one layer further down — at Account, not Customer. Deliberately
+# built so the future AI investigation doesn't learn "the answer is always
+# Customer" — it has to actually walk lineage each time, not pattern-match
+# to the one example it's seen before.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier4_account_volume_cascade.yaml
+
+scenario_name: tier4_account_volume_cascade
+description: >
+  Account batch loses 40% of its records after being built from a perfectly
+  healthy customer batch. Transaction, built downstream from THIS shrunken
+  account batch, is structurally fine and passes DQ — the shrinkage is only
+  visible by comparing account row counts across time, then walking forward
+  to confirm which transaction batch was built on top of it.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 500
+    # healthy baseline — root cause is NOT here this time
+
+  - step: 2
+    dataset: account
+    rows: 400
+    fk_source_step: 1
+    error_type: volume_drop
+    error_pct: 40
+    is_cascade_origin: true
+    # true root cause — still DQ_PASSED, volume anomalies aren't
+    # deterministically catchable
+
+  - step: 3
+    dataset: transaction
+    rows: 800
+    fk_source_step: 2
+    # forced to sample account_id from the shrunken account batch

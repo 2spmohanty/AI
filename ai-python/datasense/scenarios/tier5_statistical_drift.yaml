@@ -1,0 +1,29 @@
+# scenarios/tier5_statistical_drift.yaml
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier5_statistical_drift.yaml
+
+scenario_name: tier5_statistical_drift
+description: >
+  Transaction amounts silently multiplied 5-10x — every individual value
+  still passes range/positivity checks, nothing structurally wrong. Expected:
+  DQ_PASSED, by design. Only a historical baseline comparison (ChromaDB,
+  AI layer) can catch this — this scenario exists specifically to feed that
+  future capability, not to be caught deterministically.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+
+  - step: 2
+    dataset: account
+    rows: 400
+    fk_source_step: 1
+
+  - step: 3
+    dataset: transaction
+    rows: 400
+    fk_source_step: 2
+    error_type: statistical_drift
+    error_pct: 15

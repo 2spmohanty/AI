@@ -1,0 +1,47 @@
+# scenarios/tier6_composite.yaml
+#
+# Two GENUINELY UNRELATED anomalies, on two different datasets, landing
+# close together in time. Neither causes the other — step 3's customer
+# null_spike and step 4's account orphan_fk are independent failures that
+# just happen to coincide. The hard part for the future AI investigation
+# isn't detecting either one (both fire clean DQ_FAILED alerts on their
+# own) — it's NOT concluding they're causally connected just because they
+# arrived close together.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier6_composite.yaml
+
+scenario_name: tier6_composite
+description: >
+  Two unrelated DQ_FAILED alerts (customer null_spike, account orphan_fk)
+  firing in close succession from independent causes. Both trace back to
+  the SAME healthy baseline (step 1), not to each other.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 400
+    # shared healthy baseline both later steps build from
+
+  - step: 2
+    dataset: account
+    rows: 400
+    fk_source_step: 1
+    # healthy account baseline
+
+  - step: 3
+    dataset: customer
+    rows: 200
+    error_type: null_spike
+    error_pct: 25
+    # independent failure #1 — unrelated to step 4, just close in time
+
+  - step: 4
+    dataset: account
+    rows: 200
+    fk_source_step: 1
+    error_type: orphan_fk
+    error_pct: 15
+    # independent failure #2 — samples from step 1's customer baseline,
+    # NOT from step 3's failing batch, to keep the two failures genuinely
+    # uncorrelated mechanically as well as narratively

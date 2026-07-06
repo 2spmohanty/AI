@@ -4,7 +4,13 @@
 # Python (uv) + JavaScript (node/npx)
 # ══════════════════════════════════════════════
 
-
+projects/*
+ai-python/datasense/INSTRUCTIONS.md
+ai-python/datasense/datasense_ingestion_architecture.excalidraw
+ai-python/datasense/data/*
+ai-python/datasense/inbound/*
+ai-python/datasense/infra/mosquitto/data/
+ai-python/datasense/infra/mosquitto/log/
 .env
 .env.local
 .env.*.local

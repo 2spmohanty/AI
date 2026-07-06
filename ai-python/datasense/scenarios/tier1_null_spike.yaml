@@ -1,0 +1,19 @@
+# scenarios/tier1_null_spike.yaml
+#
+# Simplest possible case — customer has no FK dependency, so this is a
+# genuine single-step scenario. Random non-nullable column gets nulled.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier1_null_spike.yaml
+
+scenario_name: tier1_null_spike
+description: >
+  Single-fact violation — null injected into a random non-nullable customer
+  column. Expected: DQ_FAILED, caught by the GE non-null expectation alone.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+    error_type: null_spike
+    error_pct: 20

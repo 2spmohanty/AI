@@ -1,0 +1,7 @@
+[
+  {"transaction_id": "TXN-3001", "account_id": "ACC-2001", "transaction_type": "DEPOSIT", "amount": 300.00, "transaction_date": "2024-06-08T09:00:00", "currency": "USD"},
+  {"transaction_id": "TXN-3002", "account_id": "ACC-2002", "transaction_type": "WITHDRAWAL", "amount": -150.00, "transaction_date": "2024-06-08T09:30:00", "currency": "USD"},
+  {"transaction_id": "TXN-3003", "account_id": "ACC-2003", "transaction_type": "DEPOSIT", "amount": 90.00, "transaction_date": "2024-06-08T10:00:00", "currency": "USD"},
+  {"transaction_id": "TXN-3004", "account_id": "ACC-2005", "transaction_type": "DEPOSIT", "amount": 2000.00, "transaction_date": "2024-06-09T08:00:00", "currency": "AUD"},
+  {"transaction_id": "TXN-3005", "account_id": "ACC-2006", "transaction_type": "FEE", "amount": -3.50, "transaction_date": "2024-06-09T11:00:00", "currency": "USD"}
+]

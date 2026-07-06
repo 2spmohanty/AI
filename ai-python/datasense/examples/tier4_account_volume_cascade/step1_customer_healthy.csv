@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,email,signup_date,country,customer_segment
+CUST-2001,Nina,Foster,nina.foster@example.com,2024-05-01,AU,RETAIL
+CUST-2002,Omar,Idris,omar.idris@example.com,2024-05-02,US,PREMIUM
+CUST-2003,Priya,Rao,priya.rao@example.com,2024-05-03,UK,RETAIL
+CUST-2004,Quinn,Ellis,quinn.ellis@example.com,2024-05-04,NZ,BUSINESS
+CUST-2005,Rosa,Vega,rosa.vega@example.com,2024-05-05,SG,RETAIL

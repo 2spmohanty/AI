@@ -1,0 +1,31 @@
+# scenarios/tier7_silent_recovery.yaml
+#
+# A failure followed by a clean run in the very next partition, with no
+# intervention in between. Tests whether the future AI investigation
+# correctly recognizes "already resolved" instead of over-escalating an
+# issue that's no longer present. resolves_step links step 2's ground truth
+# record back to step 1's, so eval.py can confirm the agent noticed the
+# resolution, not just the original failure.
+#
+#   uv run python -m datasense.orchestration.pipeline_orchestrator \
+#       --scenario datasense/scenarios/tier7_silent_recovery.yaml
+
+scenario_name: tier7_silent_recovery
+description: >
+  Customer batch fails DQ (null spike), then the very next customer batch
+  is clean — self-resolved, no human intervention. step 2 explicitly
+  references step 1 via resolves_step for ground-truth bookkeeping.
+
+steps:
+  - step: 1
+    dataset: customer
+    rows: 300
+    error_type: null_spike
+    error_pct: 20
+    # the failure
+
+  - step: 2
+    dataset: customer
+    rows: 300
+    resolves_step: 1
+    # the recovery — clean, and explicitly marked as resolving step 1

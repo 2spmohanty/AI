@@ -1,0 +1,6 @@
+customer_identifier,first_name,last_name,email,signup_date,country,customer_segment
+CUST-0001,Alice,Nguyen,alice.nguyen@example.com,2024-03-12,AU,RETAIL
+CUST-0002,Ben,Carter,ben.carter@example.com,2023-11-02,US,PREMIUM
+CUST-0003,Chen,Wei,chen.wei@example.com,2024-01-20,SG,RETAIL
+CUST-0004,Diya,Patel,diya.patel@example.com,2022-07-08,UK,BUSINESS
+CUST-0005,Ethan,Ryan,ethan.ryan@example.com,2024-05-30,NZ,RETAIL
