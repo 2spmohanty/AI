@@ -11,7 +11,7 @@ ai-python/datasense/data/*
 ai-python/datasense/inbound/*
 ai-python/datasense/infra/mosquitto/data/
 ai-python/datasense/infra/mosquitto/log/
-ai-python/skillforge/skills_remove.md
+ai-python/skillforge/plan/skills_remove.md
 
 
 .env
