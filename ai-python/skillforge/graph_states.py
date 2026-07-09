@@ -78,3 +78,11 @@ class EvaluationState(BaseModel):
                                                 "answers were vague, evasive, or too brief to make a definitive technical assessment.")
     evaluation_rationale: str = Field(description="A brief sentence explaining why this specific confidence score"
                                                   " was assigned.")
+
+class NotebookUIStateManager:
+    """Manages global thread configurations across disparate notebook cells."""
+    def __init__(self):
+        self.active_config = None
+
+# Instantiate a single global instance of our manager
+ui_manager = NotebookUIStateManager()
