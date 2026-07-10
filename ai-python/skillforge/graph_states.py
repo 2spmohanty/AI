@@ -40,11 +40,23 @@ class LearnerState(BaseModel):
     detected_gaps: List[str] = Field(default_factory=list)
     gap_confidence_score: float = Field(default=1.0)
 
+    gap_confirmation: Literal["pending", "proceed", "more_questions"] = "pending"
+    evaluation_rationale: str = Field(default="")
+
     # Downstream placeholders for future stages
-    candidate_learning_paths: List[Dict[str, Any]] = Field(default_factory=list)
+    candidate_learning_paths: Annotated[Dict[str, Any],merge_paths_by_id] = Field(default_factory=list)
     approval_status: Literal["pending", "approved", "rejected"] = "pending"
     approved_path: Dict[str, Any] = Field(default_factory=dict)
 
+
+class SocraticOutputSchema(BaseModel):
+    """The structured schema expected from the question generator model turn."""
+    next_question: str = Field(
+        description="The single Socratic question or one brief Indian parent rejection sentence."
+    )
+    chosen_subtopic: str = Field(
+        description="A concise 1-2 word label representing the core focus area or concept evaluated by this question. Must be extracted strictly from the active user interest domain without referencing examples from the system prompt rules."
+    )
 
 class InterviewSubgraphState(BaseModel):
     """Isolated state container for the chat loop node."""
@@ -62,7 +74,9 @@ class InterviewSubgraphState(BaseModel):
     detected_gaps: list[str] = Field(default_factory=list)
 
     question_asked: int = Field(default=0)
-    max_question: int = Field(default=5)
+    max_question: int = Field(default=3)
+
+    covered_subtopics: List[str] = Field(default_factory=list)
 
 
 class InterviewSummaryState(BaseModel):
