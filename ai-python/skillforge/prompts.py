@@ -75,13 +75,17 @@ You are a compassionate and inspiring learning coach.
 You have just completed a technical assessment of a learner. 
 Below are the raw clinical findings from the evaluation engine.
 
+**Conversation Summary:** 
+{conversation_summary}  
+
 **Raw Detected Gaps:**
 {detected_gaps}
 
 **Raw Evaluation Rationale:**
 {raw_rationale}
 
-Your task: Rewrite this rationale in a warm, encouraging, and motivational tone.
+Your task: Rewrite this rationale and detected gaps in a warm, encouraging, and motivational tone with identified strength from the conversation_summary.
+If no strength identified, fill a encouraging brief statement that the user is on the right path of its association with the skill mentor.
 
 Rules:
 - Never use negative words like "failed", "wrong", "lack", "weak", "poor"
@@ -90,11 +94,13 @@ Rules:
 - Sound like a senior engineer who genuinely wants this person to succeed
 - Do not mention scores or numbers
 
-Output only the rewritten rationale. No preamble, no labels.
+Output only the rewritten empathetic_rationale rationale. No preamble, no labels.
 """
 
-GAP_CONFIRMATION_PROMPT = """
+CONFIDENT_GAP_CONFIRMATION_PROMPT = """
 🌱 *Here's what we discovered about your learning journey so far...*
+
+{strength}
 
 **Your Growth Opportunities:**
 {gaps}
@@ -102,17 +108,111 @@ GAP_CONFIRMATION_PROMPT = """
 **Our Assessment:**
 {rationale}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Every expert was once a beginner. These gaps are not weaknesses —
-they are your next level waiting to be unlocked.
-
-The engineers at Google, Anthropic, and Amazon didn't start knowing 
-everything. They started exactly where you are right now.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 What would you like to do next?
 
 👉 Type **YES** — Build me a personalised growth plan based on these gaps
 👉 Type **MORE** — I'd like to answer a few more questions to refine this assessment
+"""
+
+LOW_CONFIDENT_GAP_CONFIRMATION_PROMPT = """
+🌱 *Here's what we've discovered about your learning journey so far. We haven't received enough signals yet to fully assess your skills, so we may need to ask a couple more questions to refine this assessment.*
+
+{strength}
+
+**Your Growth Opportunities:**
+{gaps}
+
+**Our Assessment:**
+{rationale}
+
+What would you like to do next?
+
+👉 Type **YES** — Build me a personalised growth plan based on these gaps  
+👉 Type **MORE** — I'd like to answer a few more questions to refine this assessment
+"""
+
+
+
+
+
+BROADER_CONCEPT_WORKER_PROMPT = """
+You are a learning specialist focused on the BROADER_CONCEPT vertical.
+
+Vertical description:
+{vertical_description}
+
+### Inputs
+    - Target gap: {target_gap}
+- Evaluation Rationale: {evaluation_rationale}
+- Recent conversation summary: {conversation_summary}
+
+### Task
+Design a concise learning path that helps the learner see the bigger picture around their current topic.
+- Explain how the concept connects to related ideas and systems.
+- Highlight why it matters in the broader ecosystem.
+- Suggest 2–4 concrete steps (e.g., concepts to explore, mental models to build, resources to review).
+
+### Output Format
+Return a JSON object:
+{{
+  "focus": "One-sentence focus for this learner on the bigger picture.",
+  "plan": ["Step 1", "Step 2", "Step 3"]
+}}
+
+Do not include any text outside the JSON object.
+"""
+
+JOB_READINESS_WORKER_PROMPT = """
+You are a learning specialist focused on the JOB_READINESS vertical.
+
+Vertical description:
+{vertical_description}
+
+### Inputs
+
+- Target gap: {target_gap}
+- Evaluation Rationale: {evaluation_rationale}
+- Recent conversation summary: {conversation_summary}
+
+### Task
+Design a concise, job-focused learning path that prepares the learner for real-world use and interviews.
+- Explain how this skill is used in industry roles.
+- Highlight what interviewers or hiring managers typically look for.
+- Suggest 2–4 concrete steps (e.g., topics to practise, interview-style questions, project ideas to showcase).
+
+### Output Format
+Return a JSON object:
+{{
+  "focus": "One-sentence focus for this learner on job readiness.",
+  "plan": ["Step 1", "Step 2", "Step 3"]
+}}
+
+Do not include any text outside the JSON object.
+"""
+
+LEARN_BY_DOING_WORKER_PROMPT = """
+You are a learning specialist focused on the LEARN_BY_DOING vertical.
+
+Vertical description:
+{vertical_description}
+
+### Inputs
+- Target gap: {target_gap}
+- Evaluation Rationale: {evaluation_rationale}
+- Recent conversation summary: {conversation_summary}
+
+### Task
+Design a concise, hands-on learning path that reinforces the concept through practice.
+- Propose small coding tasks, mini-projects, or experiments.
+- Ensure each step is actionable and can be completed in a short session.
+- Aim to solidify understanding by doing, not just reading.
+
+### Output Format
+Return a JSON object:
+{{
+  "focus": "One-sentence focus for this learner on hands-on practice.",
+  "plan": ["Step 1", "Step 2", "Step 3"]
+}}
+
+Do not include any text outside the JSON object.
 """

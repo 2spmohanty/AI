@@ -1,5 +1,5 @@
 import uuid
-from typing import List, Dict, Any, Literal, Annotated
+from typing import List, Dict, Any, Literal, Annotated,TypedDict
 from pydantic import BaseModel, Field
 import operator
 from langchain_core.messages import AnyMessage
@@ -42,6 +42,7 @@ class LearnerState(BaseModel):
 
     gap_confirmation: Literal["pending", "proceed", "more_questions"] = "pending"
     evaluation_rationale: str = Field(default="")
+    gap_confirmation_message: str = Field(default="")
 
     # Downstream placeholders for future stages
     candidate_learning_paths: Annotated[Dict[str, Any],merge_paths_by_id] = Field(default_factory=list)
@@ -93,6 +94,25 @@ class EvaluationState(BaseModel):
     evaluation_rationale: str = Field(description="A brief sentence explaining why this specific confidence score"
                                                   " was assigned.")
 
+
+class EmpatheticRationaleState(BaseModel):
+    empathetic_detected_gaps: List[str] = Field(
+        description="List of knowledge or skill gaps identified from the learner's responses, phrased in an empathetic, learner-friendly manner."
+    )
+    empathetic_rationale: str = Field(
+        description=(
+            "A compassionate, non-judgmental explanation of why these gaps matter for the learner's goals. "
+            "It connects the gaps to their interests, career aspirations, or learning journey, and avoids blaming language."
+        )
+    )
+    learner_strengths: List[str] = Field(
+        default_factory=list,
+        description="Observed strengths or correct understandings demonstrated by the learner during the interaction."
+    )
+
+
+
+
 class NotebookUIStateManager:
     """Manages global thread configurations across disparate notebook cells."""
     def __init__(self):
@@ -100,3 +120,20 @@ class NotebookUIStateManager:
 
 # Instantiate a single global instance of our manager
 ui_manager = NotebookUIStateManager()
+
+
+class LearningPathWorker(TypedDict):
+    path_idx: int
+    learning_vertical: str
+    formatted_prompt: str
+    candidate_learning_paths: Annotated[List[Dict], operator.add]
+
+
+class LearningPathOutput(BaseModel):
+    focus: str
+    plan: List[str]
+
+
+
+
+
