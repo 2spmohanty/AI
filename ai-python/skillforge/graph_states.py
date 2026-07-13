@@ -35,6 +35,7 @@ class LearnerState(BaseModel):
     # Received automatically from the Subgraph output schema
     interview_summary: List[str] = Field(default_factory=list)
     known_gaps: List[str] = Field(default_factory=list)
+    learner_motivation: str = Field(default="")
 
     # STAGE 3 fields: The single source of truth for downstream nodes
     detected_gaps: List[str] = Field(default_factory=list)
@@ -45,8 +46,9 @@ class LearnerState(BaseModel):
     gap_confirmation_message: str = Field(default="")
 
     # Downstream placeholders for future stages
-    candidate_learning_paths: Annotated[Dict[str, Any],merge_paths_by_id] = Field(default_factory=list)
+    candidate_learning_paths: Annotated[List[Dict[str, Any]], merge_paths_by_id] = Field(default_factory=list)
     approval_status: Literal["pending", "approved", "rejected"] = "pending"
+    ranked_paths: List[Dict[str, Any]] = Field(default_factory=list)
     approved_path: Dict[str, Any] = Field(default_factory=dict)
 
 
@@ -134,6 +136,31 @@ class LearningPathOutput(BaseModel):
     plan: List[str]
 
 
+
+class RankedLearningPath(BaseModel):
+    path_id: str = Field(
+        description="Unique identifier of the selected learning path."
+    )
+    rank: int = Field(
+        ge=1,
+        le=2,
+        description="Recommendation rank."
+    )
+    score: float = Field(
+        ge=0,
+        le=100,
+        description="Relevance score assigned by the model."
+    )
+    reason: str = Field(
+        description="Why this learning path matches the learner."
+    )
+
+class CandidatePathRanking(BaseModel):
+    recommended_paths: List[RankedLearningPath] = Field(
+        min_length=2,
+        max_length=2,
+        description="Exactly two best learning path recommendations."
+    )
 
 
 

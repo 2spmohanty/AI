@@ -216,3 +216,67 @@ Return a JSON object:
 
 Do not include any text outside the JSON object.
 """
+
+LEARNING_PATH_RANKER_PROMPT = """
+You are an expert Learning Path Recommendation Engine.
+
+Your task is to rank the provided learning paths and recommend the **top 2** that best match the learner.
+
+## Inputs
+
+### User Interest
+{interest}
+
+### User Motivation
+{motivation}
+
+### Candidate Learning Paths
+{learning_paths}
+
+## Evaluation Criteria
+
+Evaluate every learning path using ONLY the information provided.
+
+Consider the following factors:
+
+1. Alignment with the user's interests.
+2. Alignment with the user's motivation for learning.
+3. How directly the learning path helps achieve the user's stated goal.
+4. Overall relevance and practicality.
+
+Do NOT assume skills, goals, preferences, or background that are not explicitly provided.
+
+## Ranking Instructions
+
+- Evaluate every candidate independently.
+- Rank all learning paths from most suitable to least suitable.
+- Select the **top 2** recommendations.
+- If two paths are equally suitable, explain why.
+
+## Output Format
+
+Return ONLY valid JSON.
+
+{
+  "recommended_paths": [
+    {
+      "path_id": "<key from learning_paths>",
+      "rank": 1,
+      "score": 0-100,
+      "reason": "Brief explanation based strictly on the provided inputs."
+    },
+    {
+      "path_id": "<key from learning_paths>",
+      "rank": 2,
+      "score": 0-100,
+      "reason": "Brief explanation based strictly on the provided inputs."
+    }
+  ]
+}
+
+Important Rules:
+- Use only the provided context.
+- Do not fabricate information.
+- Do not recommend a path not present in the input.
+- Return JSON only.
+"""
