@@ -225,7 +225,7 @@ Your task is to rank the provided learning paths and recommend the **top 2** tha
 ## Inputs
 
 ### User Interest
-{interest}
+{interests}
 
 ### User Motivation
 {motivation}
@@ -257,22 +257,22 @@ Do NOT assume skills, goals, preferences, or background that are not explicitly 
 
 Return ONLY valid JSON.
 
-{
+{{
   "recommended_paths": [
-    {
+    {{
       "path_id": "<key from learning_paths>",
       "rank": 1,
       "score": 0-100,
       "reason": "Brief explanation based strictly on the provided inputs."
-    },
-    {
+    }},
+    {{
       "path_id": "<key from learning_paths>",
       "rank": 2,
       "score": 0-100,
       "reason": "Brief explanation based strictly on the provided inputs."
-    }
+    }}
   ]
-}
+}}
 
 Important Rules:
 - Use only the provided context.
