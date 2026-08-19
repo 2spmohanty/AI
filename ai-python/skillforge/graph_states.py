@@ -124,7 +124,7 @@ class NotebookUIStateManager:
 ui_manager = NotebookUIStateManager()
 
 
-class LearningPathWorker(TypedDict):
+class LearningPathWorkerState(TypedDict):
     path_idx: int
     learning_vertical: str
     formatted_prompt: str

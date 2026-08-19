@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "skillforge": "./graph.py:graph"
+  },
+  "env": ".env"
+}
