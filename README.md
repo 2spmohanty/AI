@@ -52,7 +52,6 @@ I track this as a project because I treat it like one. A clear plan, defined pha
 | 5 | AI Agents + LangGraph | ✅ Complete |
 | 5B | Multi-Agent Frameworks (CrewAI, ADK) | 🟡 In Progress |
 | 5C | Fine-tuning + LoRA | ⬜ Planned |
-| 6 | Portfolio + Job Applications | 🟡 In Progress |
 | 7 | Major Capstones | 🟡 In Progress |
 | 8 | AI Safety + Evals | ⬜ Planned |
 | 9 | LLMOps + Token Economics | ⬜ Planned |
