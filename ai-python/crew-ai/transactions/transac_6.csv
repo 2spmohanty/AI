@@ -1,0 +1,51 @@
+date,description,amount,category
+2026-01-01,Internet Provider,70.41,Utilities
+2026-01-01,Kroger,35.96,Groceries
+2026-01-02,Metro Card,16.61,Transportation
+2026-01-03,Internet Provider,164.68,Utilities
+2026-01-04,Local Cafe,29.36,Dining
+2026-01-06,Trader Joe's,47.09,Groceries
+2026-01-07,Electric Company,203.79,Utilities
+2026-01-08,Internet Provider,242.81,Utilities
+2026-01-11,Kroger,92.76,Groceries
+2026-01-11,Local Cafe,19.96,Dining
+2026-01-18,ATM Fee,13.86,Fees
+2026-01-21,Olive Garden,47.07,Dining
+2026-01-23,Local Cafe,38.34,Dining
+2026-01-25,Local Grocery Store,164.81,Groceries
+2026-01-29,Lyft,18.36,Transportation
+2026-02-03,ATM Fee,27.49,Fees
+2026-02-03,ATM Fee,26.90,Fees
+2026-02-03,ATM Fee,32.99,Fees
+2026-02-04,Whole Foods Market,91.35,Groceries
+2026-02-09,Olive Garden,63.21,Dining
+2026-02-10,Safeway,181.26,Groceries
+2026-02-12,Overdraft Fee,3.27,Fees
+2026-02-13,Metro Card,28.62,Transportation
+2026-02-13,Shell Gas Station,66.67,Transportation
+2026-02-15,McDonald's,44.90,Dining
+2026-02-15,Whole Foods Market,100.81,Groceries
+2026-02-19,Lyft,11.47,Transportation
+2026-02-19,Water Utility,156.98,Utilities
+2026-02-23,Phone Bill,56.37,Utilities
+2026-02-25,Kroger,91.08,Groceries
+2026-03-01,Whole Foods Market,48.58,Groceries
+2026-03-06,Kroger,152.11,Groceries
+2026-03-06,Chipotle,71.49,Dining
+2026-03-08,Parking Garage,22.36,Transportation
+2026-03-12,ATM Fee,26.00,Fees
+2026-03-13,Gas Company,220.42,Utilities
+2026-03-17,Local Grocery Store,27.25,Groceries
+2026-03-17,Wire Transfer Fee,4.52,Fees
+2026-03-19,Parking Garage,82.84,Transportation
+2026-03-22,Local Cafe,41.29,Dining
+2026-03-23,Metro Card,56.85,Transportation
+2026-03-23,McDonald's,9.82,Dining
+2026-03-24,Metro Card,71.64,Transportation
+2026-03-24,Starbucks,73.52,Dining
+2026-03-26,Water Utility,116.98,Utilities
+2026-03-27,Overdraft Fee,16.44,Fees
+2026-03-28,Olive Garden,55.16,Dining
+2026-03-29,Internet Provider,176.85,Utilities
+2026-03-30,ATM Fee,34.52,Fees
+2026-03-31,Chipotle,5.13,Dining

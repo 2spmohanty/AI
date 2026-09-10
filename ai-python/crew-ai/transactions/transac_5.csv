@@ -1,0 +1,52 @@
+date,description,amount,category
+2026-04-01,Uber,34.69,Transportation
+2026-01-07,Lyft,72.77,Transportation
+2026-01-17,ATM Fee,30.86,Fees
+2026-03-15,Internet Provider,145.74,Utilities
+2026-02-13,Starbucks,23.94,Dining
+2026-03-03,Whole Foods Market,95.12,Groceries
+2026-01-10,Shell Gas Station,23.66,Transportation
+2026-03-14,Electric Company,248.78,Utilities
+2026-01-16,Metro Card,64.57,Transportation
+2026-03-21,Local Cafe,33.53,Dining
+2026-02-26,Phone Bill,248.01,Utilities
+2026-02-09,Parking Garage,15.42,Transportation
+2026-01-13,Chipotle,24.85,Dining
+2026-01-11,Chipotle,18.04,Dining
+2026-01-10,Starbucks,35.64,Dining
+2026-03-30,Metro Card,36.21,Transportation
+2026-01-30,Gas Company,190.60,Utilities
+2026-02-28,Trader Joe's,186.68,Groceries
+2026-03-22,Uber,48.26,Transportation
+2026-03-11,Chipotle,73.13,Dining
+2026-01-19,Whole Foods Market,54.04,Groceries
+2026-02-09,Parking Garage,92.91,Transportation
+2026-02-26,Safeway,145.52,Groceries
+2026-03-31,Overdraft Fee,18.77,Fees
+2026-03-05,ATM Fee,21.94,Fees
+2026-02-25,Phone Bill,100.07,Utilities
+2026-01-12,Local Cafe,49.03,Dining
+2026-01-03,Phone Bill,58.05,Utilities
+2026-01-23,Wire Transfer Fee,32.27,Fees
+2026-01-24,Metro Card,67.13,Transportation
+2026-03-04,Safeway,85.89,Groceries
+2026-02-12,Electric Company,221.55,Utilities
+2026-02-12,Wire Transfer Fee,11.87,Fees
+2026-02-21,Shell Gas Station,50.93,Transportation
+2026-02-10,Gas Company,73.18,Utilities
+2026-01-25,Water Utility,189.44,Utilities
+2026-02-23,Water Utility,156.29,Utilities
+2026-03-18,Internet Provider,198.73,Utilities
+2026-01-20,Whole Foods Market,132.45,Groceries
+2026-02-15,ATM Fee,2.50,Fees
+2026-03-01,Local Cafe,12.34,Dining
+2026-03-05,Local Cafe,10.87,Dining
+2026-03-10,Local Cafe,9.45,Dining
+2026-03-15,Local Cafe,11.23,Dining
+2026-03-20,Local Cafe,13.56,Dining
+2026-03-25,Local Cafe,14.02,Dining
+2026-02-10,Best Buy,89.99,Electronics
+2026-02-15,Best Buy,-189.99,Electronics
+2026-01-28,Kroger,167.33,Groceries
+2026-03-27,Uber,41.28,Transportation
+2026-02-17,Trader Joe's,143.67,Groceries

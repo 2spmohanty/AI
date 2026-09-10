@@ -1,0 +1,52 @@
+date,description,amount,category
+2026-01-31,Chipotle,71.11,Dining
+2026-01-04,Olive Garden,63.68,Dining
+2026-02-22,Olive Garden,16.94,Dining
+2026-03-31,Safeway,177.63,Groceries
+2026-03-02,Chipotle,66.24,Dining
+2026-02-28,Gas Company,214.11,Utilities
+2026-01-30,Starbucks,54.50,Dining
+2026-02-21,Gas Company,222.87,Utilities
+2026-02-05,Phone Bill,129.94,Utilities
+2026-03-10,Electric Company,73.07,Utilities
+2026-02-03,Local Cafe,77.19,Dining
+2026-02-03,Whole Foods Market,129.40,Groceries
+2026-02-14,Internet Provider,171.24,Utilities
+2026-03-07,Safeway,182.41,Groceries
+2026-01-25,Electric Company,191.76,Utilities
+2026-01-01,Parking Garage,71.82,Transportation
+2026-03-27,Olive Garden,37.35,Dining
+2026-03-27,Phone Bill,112.78,Utilities
+2026-01-16,Phone Bill,111.86,Utilities
+2026-02-22,Internet Provider,189.44,Utilities
+2026-03-12,Chipotle,36.53,Dining
+2026-02-18,Local Cafe,47.68,Dining
+2026-02-21,Shell Gas Station,37.35,Transportation
+2026-01-27,Overdraft Fee,17.61,Fees
+2026-02-26,Local Cafe,40.49,Dining
+2026-01-22,Local Grocery Store,115.20,Groceries
+2026-03-23,Lyft,18.40,Transportation
+2026-01-31,Water Utility,211.31,Utilities
+2026-01-19,Whole Foods Market,67.85,Groceries
+2026-03-02,Shell Gas Station,50.99,Transportation
+2026-03-22,Uber,74.65,Transportation
+2026-02-19,Wire Transfer Fee,10.43,Fees
+2026-03-25,Whole Foods Market,161.22,Groceries
+2026-01-29,Local Cafe,39.84,Dining
+2026-03-13,Starbucks,39.23,Dining
+2026-03-01,Parking Garage,63.59,Transportation
+2026-02-26,Parking Garage,48.41,Transportation
+2026-03-12,Monthly Service Fee,26.67,Fees
+2026-03-02,Overdraft Fee,26.93,Fees
+2026-03-23,Phone Bill,146.92,Utilities
+2026-01-15,Netflix,15.99,Entertainment
+2026-02-15,Netflix,15.99,Entertainment
+2026-03-15,Netflix,24.99,Entertainment
+2026-03-20,Starbucks,5.50,Dining
+2026-03-20,Starbucks,6.25,Dining
+2026-03-20,Starbucks,4.75,Dining
+2026-03-20,Amazon,89.99,Shopping
+2026-03-20,Target,125.50,Shopping
+2026-01-31,Internet Provider,65.50,Utilities
+2026-02-06,Olive Garden,30.19,Dining
+2026-03-11,Trader Joe's,51.40,Groceries

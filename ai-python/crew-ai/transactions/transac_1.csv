@@ -1,0 +1,52 @@
+date,description,amount,category
+2026-03-23,Whole Foods Market,154.77,Groceries
+2026-02-01,Chipotle,60.24,Dining
+2026-03-28,Shell Gas Station,63.14,Transportation
+2026-01-05,Whole Foods Market,63.26,Groceries
+2026-03-06,Shell Gas Station,60.51,Transportation
+2026-03-25,Metro Card,29.84,Transportation
+2026-03-17,Electric Company,201.76,Utilities
+2026-01-21,Overdraft Fee,11.53,Fees
+2026-01-28,Electric Company,68.55,Utilities
+2026-01-13,Gas Company,170.75,Utilities
+2026-01-06,ATM Fee,34.13,Fees
+2026-02-18,Kroger,76.31,Groceries
+2026-03-22,Lyft,61.96,Transportation
+2026-04-01,Whole Foods Market,140.72,Groceries
+2026-02-07,Trader Joe's,176.63,Groceries
+2026-02-18,Internet Provider,177.14,Utilities
+2026-02-16,Olive Garden,31.65,Dining
+2026-03-27,Electric Company,171.83,Utilities
+2026-01-22,Uber,24.71,Transportation
+2026-02-18,Phone Bill,93.92,Utilities
+2026-02-11,Trader Joe's,168.82,Groceries
+2026-02-10,Overdraft Fee,4.65,Fees
+2026-03-14,Water Utility,181.09,Utilities
+2026-02-20,Monthly Service Fee,11.11,Fees
+2026-02-01,Parking Garage,33.65,Transportation
+2026-03-16,Wire Transfer Fee,14.26,Fees
+2026-01-18,Metro Card,18.18,Transportation
+2026-01-07,Trader Joe's,134.80,Groceries
+2026-03-29,ATM Fee,15.00,Fees
+2026-03-18,Overdraft Fee,34.06,Fees
+2026-01-02,Kroger,156.40,Groceries
+2026-03-24,Electric Company,108.70,Utilities
+2026-01-21,ATM Fee,33.50,Fees
+2026-02-03,Uber,55.69,Transportation
+2026-01-14,Phone Bill,171.79,Utilities
+2026-01-20,Water Utility,157.88,Utilities
+2026-03-09,Kroger,81.73,Groceries
+2026-01-03,Local Grocery Store,178.78,Groceries
+2026-02-09,Starbucks,23.07,Dining
+2026-03-14,Whole Foods Market,153.08,Groceries
+2026-01-09,Uber,21.56,Transportation
+2026-03-02,Uber,33.86,Transportation
+2026-03-19,Monthly Service Fee,32.69,Fees
+2026-03-30,Olive Garden,34.92,Dining
+2026-03-27,Internet Provider,229.92,Utilities
+2026-02-27,Trader Joe's,64.32,Groceries
+2026-02-13,Kroger,121.94,Groceries
+2026-03-17,Starbucks,10.32,Dining
+2026-02-15,Local Grocery Store,124.50,Groceries
+2026-02-15,Local Grocery Store,124.50,Groceries
+2026-03-22,Electronics Warehouse,2450.00,Shopping

@@ -1,0 +1,51 @@
+date,description,amount,category
+2026-03-22,Trader Joe's,36.80,Groceries
+2026-01-05,Electric Company,152.83,Utilities
+2026-02-05,Monthly Service Fee,20.03,Fees
+2026-03-15,Metro Card,31.87,Transportation
+2026-03-02,Monthly Service Fee,5.57,Fees
+2026-03-26,Overdraft Fee,16.27,Fees
+2026-03-01,Whole Foods Market,35.61,Groceries
+2026-02-13,Trader Joe's,58.53,Groceries
+2026-03-10,Monthly Service Fee,16.21,Fees
+2026-02-05,Monthly Service Fee,30.92,Fees
+2026-01-10,ATM Fee,4.14,Fees
+2026-03-11,Whole Foods Market,187.11,Groceries
+2026-01-31,McDonald's,41.42,Dining
+2026-01-28,ATM Fee,7.85,Fees
+2026-01-01,Overdraft Fee,32.61,Fees
+2026-02-28,Internet Provider,189.32,Utilities
+2026-03-13,Monthly Service Fee,8.67,Fees
+2026-01-28,Kroger,153.75,Groceries
+2026-01-08,Electric Company,60.03,Utilities
+2026-03-03,Parking Garage,24.17,Transportation
+2026-03-07,Trader Joe's,36.99,Groceries
+2026-01-09,McDonald's,13.99,Dining
+2026-03-14,Local Cafe,49.59,Dining
+2026-03-21,Safeway,140.04,Groceries
+2026-03-14,Lyft,94.12,Transportation
+2026-01-27,Water Utility,103.12,Utilities
+2026-01-17,Internet Provider,113.24,Utilities
+2026-01-10,Safeway,133.70,Groceries
+2026-03-14,Whole Foods Market,119.09,Groceries
+2026-03-06,Water Utility,236.65,Utilities
+2026-01-09,Olive Garden,26.37,Dining
+2026-02-26,Lyft,65.05,Transportation
+2026-03-25,Shell Gas Station,70.11,Transportation
+2026-03-12,Electric Company,237.79,Utilities
+2026-01-18,Electric Company,227.94,Utilities
+2026-03-12,Olive Garden,26.13,Dining
+2026-01-27,Water Utility,187.50,Utilities
+2026-02-03,Metro Card,32.60,Transportation
+2026-01-07,Safeway,170.14,Groceries
+2026-01-06,Local Grocery Store,159.95,Groceries
+2026-03-23,Water Utility,198.25,Utilities
+2026-03-12,ATM Fee,6.14,Fees
+2026-03-30,Local Cafe,7.70,Dining
+2026-02-17,Parking Garage,23.33,Transportation
+2026-01-17,Local Grocery Store,88.81,Groceries
+2026-01-06,Water Utility,186.41,Utilities
+2026-03-27,Local Grocery Store,161.52,Groceries
+2026-02-10,Whole Foods Market,0.50,Groceries
+2026-03-05,Shell Gas Station,45.00,Dining
+2026-02-22,Uber,93.32,Transportation
